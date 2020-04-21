@@ -15,9 +15,9 @@
 # along with Respyrator.  If not, see <http://www.gnu.org/licenses/>.
 
 # Built-in --------------------------------------------------------------------
+from configparser import ConfigParser
 from datetime import datetime
 from pathlib import Path
-import configparser
 import logging
 # Installed -------------------------------------------------------------------
 # Coded -----------------------------------------------------------------------
@@ -26,7 +26,7 @@ PROJECT_DIR = Path(__file__).resolve().parents[1]
 BASE_DIR = Path(__file__).resolve().parents[0]
 # PARSE CONFIGURATION ---------------------------------------------------------
 CONF_FILE = BASE_DIR / 'configuration.ini'
-cfg = configparser.ConfigParser()
+cfg = ConfigParser()
 cfg.read(str(CONF_FILE))
 # LOG -------------------------------------------------------------------------
 LOG_DIR = PROJECT_DIR / 'log'
