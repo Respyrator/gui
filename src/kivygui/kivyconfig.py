@@ -36,7 +36,7 @@ if KIVY_CONFIG.exists():
 else:
     logapp.error(f'{LOG} Kivy not well configured')
 # COLORs
-colors = {k: get_color_from_hex(v) for k, v in gui_colors}
+colors = {k: get_color_from_hex(v) for k, v in gui_colors.items()}
 print(f'COLORES = {colors}')
 # IMGs
 imgs = gui_imgs

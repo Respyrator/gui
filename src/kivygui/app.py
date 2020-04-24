@@ -22,12 +22,14 @@ from kivy.lang import Builder
 from kivy.clock import Clock
 from kivy.uix.screenmanager import ScreenManager, NoTransition
 # Coded -----------------------------------------------------------------------
-from .kivyconfig import KIVY_DIR
+from kivygui.kivyconfig import KIVY_DIR
 # Program ---------------------------------------------------------------------
 
-file = Path(__name__).resolve().stem + '.kv'
-print(f'File = {file}, type = {type(file)}')
-Builder.load_file()
+#polla = Path(__name__).resolve().stem + '.kv'
+#print(f'File = {polla}, type = {type(polla)}')
+pene = Path(__file__).resolve().parents[0] / 'app.kv'
+
+Builder.load_file(str(pene))
 
 
 class GuiManager(ScreenManager):
@@ -37,8 +39,8 @@ class GuiManager(ScreenManager):
 class GuiApp(App):
 
     def build(self):
-        return GuiManager(Transition=NoTransition())
+        return GuiManager()
 
 
-#if __name__ == "__main__":
-#    GuiApp().run()
+if __name__ == "__main__":
+    GuiApp().run()
