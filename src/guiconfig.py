@@ -19,7 +19,7 @@ from configparser import ConfigParser
 from pathlib import Path
 # Installed -------------------------------------------------------------------
 # Coded -----------------------------------------------------------------------
-from settings import logapp
+from src.settings import logapp
 # Program ---------------------------------------------------------------------
 LOG = 'GUI:'
 

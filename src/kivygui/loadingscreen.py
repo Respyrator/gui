@@ -14,17 +14,16 @@
 # You should have received a copy of the GNU General Public License
 # along with Respyrator.  If not, see <http://www.gnu.org/licenses/>.
 
-from kivy.lang.builder import Builder
+# Built-in --------------------------------------------------------------------
+# Installed -------------------------------------------------------------------
 from kivy.uix.screenmanager import Screen
-from kivy.uix.button import Button
-
-
-from src import logapp
-from . import KV_FILES
-
-Builder.load_file(str(KV_FILES / 'loadingscreen.kv'))
-# txts: dict = cfg_txt.get('INFOSCREEN', '')
+# Coded -----------------------------------------------------------------------
+from src.settings import logapp
+from .kivyconfig import load_kv
+# Program ---------------------------------------------------------------------
 LOG = 'LoadingScreen:'
+
+load_kv(__file__)
 
 
 class LoadingScreen(Screen):

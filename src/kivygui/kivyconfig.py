@@ -18,6 +18,7 @@
 from pathlib import Path
 # Installed -------------------------------------------------------------------
 from kivy.config import Config
+from kivy.lang import Builder
 from kivy.core.window import Window
 from kivy.utils import get_color_from_hex
 # Coded -----------------------------------------------------------------------
@@ -46,13 +47,6 @@ txts = gui_txts
 Window.clearcolor = colors.get('brand', (0, 1, 0, 1))
 logapp.debug(f'{LOG} Window background to {Window.clearcolor}')
 # Load .kv files for ScreenManager
-'''
-if KIVY_DIR:
-    from . import loadingscreen, modesscreen, paramsscreen, alarmsscreen, \
-        monitoringscreen
-    __all__ = [
-        'loadingscreen', 'modesscreen', 'paramsscreen', 'alarmsscreen',
-        'monitoringscreen'
-    ]
-'''
+load_kv = lambda x: Builder.load_file(str(Path(x).resolve())[:-3] + '.kv')
+
 logapp.info(f'{LOG} kivy config loaded')

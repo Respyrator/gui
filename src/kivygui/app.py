@@ -22,14 +22,10 @@ from kivy.lang import Builder
 from kivy.clock import Clock
 from kivy.uix.screenmanager import ScreenManager, NoTransition
 # Coded -----------------------------------------------------------------------
-from kivygui.kivyconfig import KIVY_DIR
+from .kivyconfig import load_kv
 # Program ---------------------------------------------------------------------
-
-#polla = Path(__name__).resolve().stem + '.kv'
-#print(f'File = {polla}, type = {type(polla)}')
-pene = Path(__file__).resolve().parents[0] / 'app.kv'
-
-Builder.load_file(str(pene))
+LOG: 'APP:'
+load_kv(__file__)
 
 
 class GuiManager(ScreenManager):

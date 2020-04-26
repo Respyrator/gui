@@ -13,3 +13,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Respyrator.  If not, see <http://www.gnu.org/licenses/>.
+
+from . import loadingscreen
+
+__all__ = ['loadingscreen']
