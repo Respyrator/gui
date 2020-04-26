@@ -37,6 +37,9 @@ class GuiApp(App):
     def build(self):
         return GuiManager()
 
+    def change_screen(self):
+        self.root.current = self.root.next()
+
 
 if __name__ == "__main__":
     GuiApp().run()

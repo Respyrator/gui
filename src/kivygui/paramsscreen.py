@@ -14,16 +14,17 @@
 # You should have received a copy of the GNU General Public License
 # along with Respyrator.  If not, see <http://www.gnu.org/licenses/>.
 
-#:kivy 1.11.1
+# Built-in --------------------------------------------------------------------
+# Installed -------------------------------------------------------------------
+from kivy.uix.screenmanager import Screen
+# Coded -----------------------------------------------------------------------
+from src.settings import logapp
+from .kivyconfig import load_kv
+# Program ---------------------------------------------------------------------
+LOG = 'ParamsScreen:'
 
-<LoadingScreen>:
-    name: 'loading_screen'
-    id: loading_screen
-    AnchorLayout:
-        anchor_x: 'center'
-        anchor_y: 'center'
-        padding: 10
+load_kv(__file__)
 
-        Button:
-            text: txts['loading_txt']
-            on_press: app.change_screen()
+
+class ParamsScreen(Screen):
+    pass

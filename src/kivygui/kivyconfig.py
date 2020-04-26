@@ -44,7 +44,7 @@ imgs = gui_imgs
 # TXTs
 txts = gui_txts
 # Background Window color
-Window.clearcolor = colors.get('brand', (0, 1, 0, 1))
+Window.clearcolor = colors['brand']
 logapp.debug(f'{LOG} Window background to {Window.clearcolor}')
 # Load .kv files for ScreenManager
 load_kv = lambda x: Builder.load_file(str(Path(x).resolve())[:-3] + '.kv')

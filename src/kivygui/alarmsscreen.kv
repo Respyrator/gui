@@ -16,14 +16,14 @@
 
 #:kivy 1.11.1
 
-<LoadingScreen>:
-    name: 'loading_screen'
-    id: loading_screen
+<AlarmsScreen>:
+    name: 'alarms_screen'
+    id: alarms_screen
     AnchorLayout:
         anchor_x: 'center'
         anchor_y: 'center'
         padding: 10
 
         Button:
-            text: txts['loading_txt']
+            text: txts['alarms_alarms']
             on_press: app.change_screen()
