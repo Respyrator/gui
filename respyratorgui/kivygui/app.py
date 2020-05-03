@@ -15,31 +15,45 @@
 # along with Respyrator.  If not, see <http://www.gnu.org/licenses/>.
 
 # Built-in --------------------------------------------------------------------
-from pathlib import Path
 # Installed -------------------------------------------------------------------
 from kivy.app import App
-from kivy.lang import Builder
 from kivy.clock import Clock
-from kivy.uix.screenmanager import ScreenManager, NoTransition
+from kivy.uix.boxlayout import BoxLayout
+from kivy.properties import ObjectProperty
+from kivy.uix.screenmanager import NoTransition
 # Coded -----------------------------------------------------------------------
-#from .kivyconfig import load_kv
 from . import logapp, load_kv
 # Program ---------------------------------------------------------------------
-LOG: 'APP:'
+LOG = 'APP:'
 load_kv(__file__)
 
 
-class GuiManager(ScreenManager):
+class GuiContainer(BoxLayout):
     pass
 
 
 class GuiApp(App):
+    sm = ObjectProperty()
+    tabs = ObjectProperty()
 
     def build(self):
-        return GuiManager()
+        logapp.debug(f'{LOG} build()')
+        #Clock.schedule_once(lambda x: self.setup())
+        container = GuiContainer()
+        return container
 
-    def change_screen(self):
-        self.root.current = self.root.next()
+    def setup(self):
+        print("mi polla en tu boca")
+        self.root.sm.transition = NoTransition()
+
+    def tab_selected(self, tab=''):
+        screens = {
+            'modes': 'modes_screen',
+            'alarms': 'alarms_screen',
+            'params': 'params_screen',
+            'monitoring': 'monitoring_screen'
+        }
+        self.root.sm.current = screens.get(tab, 'loading_screen')
 
 
 if __name__ == "__main__":

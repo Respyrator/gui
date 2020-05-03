@@ -15,19 +15,62 @@
 # along with Respyrator.  If not, see <http://www.gnu.org/licenses/>.
 
 #:kivy 1.11.1
+#:import NoTransition kivy.uix.screenmanager.NoTransition
 #:import colors respyratorgui.kivygui.colors
 #:import imgs respyratorgui.kivygui.imgs
 #:import txts respyratorgui.kivygui.txts
 
-<GuiManager>:
-    id: gui_manager
-    LoadingScreen:
-        manager: gui_manager
-    ModesScreen:
-        manager: gui_manager
-    ParamsScreen:
-        manager: gui_manager
-    AlarmsScreen:
-        manager: gui_manager
-    MonitoringScreen:
-        manager: gui_manager
+<GuiContainer>:
+    id: gui_container
+    orientation: 'vertical'
+    sm: gui_manager
+    tabs: gui_tabs
+
+    ScreenManager:
+        id: gui_manager
+        size_hint_y: 9
+        transition: NoTransition()
+
+        LoadingScreen:
+            manager: gui_manager
+        ModesScreen:
+            manager: gui_manager
+        ParamsScreen:
+            manager: gui_manager
+        AlarmsScreen:
+            manager: gui_manager
+        MonitoringScreen:
+            manager: gui_manager
+
+    BoxLayout:
+        id: gui_tabs
+        size_hint_y: 1
+        orientation: 'horizontal'
+
+        Button:
+            text: 'Cancel'
+            on_press: app.tab_selected()
+
+        Label:
+            text : ''
+
+        ToggleButton:
+            group: 'tabs'
+            text: txts['modes_modes']
+            on_press: app.tab_selected('modes')
+
+        ToggleButton:
+            group: 'tabs'
+            text: txts['params_params']
+            on_press: app.tab_selected('params')
+        ToggleButton:
+            group: 'tabs'
+            text: txts['alarms_alarms']
+            on_press: app.tab_selected('alarms')
+
+        Label:
+            text : ''
+
+        Button:
+            text: 'OK'
+            on_press: app.tab_selected('monitoring')
