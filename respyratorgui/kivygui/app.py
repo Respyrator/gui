@@ -22,7 +22,8 @@ from kivy.lang import Builder
 from kivy.clock import Clock
 from kivy.uix.screenmanager import ScreenManager, NoTransition
 # Coded -----------------------------------------------------------------------
-from .kivyconfig import load_kv
+#from .kivyconfig import load_kv
+from . import logapp, load_kv
 # Program ---------------------------------------------------------------------
 LOG: 'APP:'
 load_kv(__file__)

@@ -13,3 +13,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Respyrator.  If not, see <http://www.gnu.org/licenses/>.
+
+from respyratorgui.settings import logapp, LOG_DIR
+from respyratorgui.guiconfig import gui_colors, gui_imgs, gui_txts

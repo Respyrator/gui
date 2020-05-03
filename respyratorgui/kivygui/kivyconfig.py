@@ -22,8 +22,9 @@ from kivy.lang import Builder
 from kivy.core.window import Window
 from kivy.utils import get_color_from_hex
 # Coded -----------------------------------------------------------------------
-from respyratorgui.settings import LOG_DIR, logapp
-from respyratorgui.guiconfig import gui_colors, gui_imgs, gui_txts
+from respyratorgui import logapp, LOG_DIR, gui_colors, gui_imgs, gui_txts
+#from respyratorgui.settings import LOG_DIR, logapp
+#from respyratorgui.guiconfig import gui_colors, gui_imgs, gui_txts
 # Program ---------------------------------------------------------------------
 LOG = 'KIVYGUI:'
 

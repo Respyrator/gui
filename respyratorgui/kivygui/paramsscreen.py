@@ -18,8 +18,8 @@
 # Installed -------------------------------------------------------------------
 from kivy.uix.screenmanager import Screen
 # Coded -----------------------------------------------------------------------
-from respyratorgui.settings import logapp
-from .kivyconfig import load_kv
+from respyratorgui import logapp
+from . import load_kv
 # Program ---------------------------------------------------------------------
 LOG = 'ParamsScreen:'
 

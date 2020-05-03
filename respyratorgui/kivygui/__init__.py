@@ -14,10 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Respyrator.  If not, see <http://www.gnu.org/licenses/>.
 
+from respyratorgui import logapp
+from .kivyconfig import load_kv, colors, imgs, txts
 from . import loadingscreen, modesscreen, paramsscreen, alarmsscreen, \
     monitoringscreen
-
-__all__ = [
-    'loadingscreen', 'modesscreen', 'paramsscreen', 'alarmsscreen',
-    'monitoringscreen'
-]
