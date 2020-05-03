@@ -19,9 +19,109 @@
 <ModesScreen>:
     name: 'modes_screen'
     id: modes_screen
-    AnchorLayout:
-        anchor_x: 'center'
-        anchor_y: 'center'
+    BoxLayout:
+        orientation: 'vertical'
 
-        Label:
-            text: txts['modes_modes']
+        # Tittle & Controls ---------------------------------------------------
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 2
+
+            Label:
+                text: txts['modes_modes']
+
+            BoxLayout:
+                orientation: 'vertical'
+
+                Label:
+                    text: txts['modes_control']
+                
+                BoxLayout:
+                    orientation: 'horizontal'
+
+                    Label:
+                        text: txts['modes_control_pressure']
+
+                    Label:
+                        text: txts['modes_control_volume']
+        # Ventilations & mode buttons -----------------------------------------
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 4
+            # Ventilations Tittle ---------------------------------------------
+            Widget:
+                #anchor_x: 'center'
+                #anchor_y: 'center'
+                size_hint_x: 1
+            
+                Scatter:
+                    center: self.parent.center
+                    size: ventilations.size
+                    do_rotation: False
+                    do_translation: False
+                    do_scale: False
+                    rotation: 90
+
+                    Label:
+                        id: ventilations
+                        size: self.texture_size
+                        text: txts['modes_ventilations']
+            # Ventilations ----------------------------------------------------
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: 4
+
+                Label:
+                    text: txts['modes_ventilation_control']
+
+                Label:
+                    text: txts['modes_ventilation_assist']
+
+                Label:
+                    text: txts['modes_ventilation_support']
+
+                Label:
+                    text: txts['modes_ventilation_spontaneous']
+            # Control Buttons ---------------------------------------
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: 5
+                # Buttons except last row
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: 3
+                    # Buttons Control Preassure
+                    BoxLayout:
+                        orientation: 'vertical'
+
+                        Button:
+                            text: 'Control Presión'
+
+                        Button:
+                            text: 'Asistido Presión'
+
+                        Button:
+                            text: 'Soporte Presión'
+                    # Buttons Control Volume
+                    BoxLayout:
+                        orientation: 'vertical'
+
+                        Button:
+                            text: 'Control Volumen'
+
+                        Button:
+                            text: 'Asistido Volumen'
+
+                        Label:
+                            text: ''
+                # Buttons last row
+                Button:
+                    size_hint_y: 1
+                    text: 'Espontáneo'
+
+            
+            # Control Volume Buttons ------------------------------------------
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: 
+
