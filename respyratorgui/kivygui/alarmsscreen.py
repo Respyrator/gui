@@ -18,13 +18,13 @@
 # Installed -------------------------------------------------------------------
 from kivy.uix.screenmanager import Screen
 # Coded -----------------------------------------------------------------------
-from src.settings import logapp
+from respyratorgui.settings import logapp
 from .kivyconfig import load_kv
 # Program ---------------------------------------------------------------------
-LOG = 'MonitoringScreen:'
+LOG = 'AlarmsScreen:'
 
 load_kv(__file__)
 
 
-class MonitoringScreen(Screen):
+class AlarmsScreen(Screen):
     pass

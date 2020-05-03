@@ -1,4 +1,4 @@
-from src.kivygui.app import GuiApp
+from respyratorgui.kivygui.app import GuiApp
 
 
 if __name__ == "__main__":

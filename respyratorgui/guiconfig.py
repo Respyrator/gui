@@ -15,16 +15,26 @@
 # along with Respyrator.  If not, see <http://www.gnu.org/licenses/>.
 
 # Built-in --------------------------------------------------------------------
+from configparser import ConfigParser
+from pathlib import Path
 # Installed -------------------------------------------------------------------
-from kivy.uix.screenmanager import Screen
 # Coded -----------------------------------------------------------------------
-from src.settings import logapp
-from .kivyconfig import load_kv
+from respyratorgui.settings import logapp
 # Program ---------------------------------------------------------------------
-LOG = 'LoadingScreen:'
+LOG = 'GUI:'
 
-load_kv(__file__)
+GUI_CONFIG = Path(__file__).resolve().parents[0] / 'guiconfig.ini'
+cfg = ConfigParser()
+cfg.read(str(GUI_CONFIG))
+# COLORs
+gui_colors = {k: v for k, v in cfg['COLORs'].items()}
+# IMGs
+gui_imgs = {k: v for k, v in cfg['IMGs'].items()}
+# TXTs
+gui_txts = {k: v for k, v in cfg['TXTs'].items()}
 
+logapp.debug(f'COLORS = {gui_colors}')
+logapp.debug(f'IMGS = {gui_imgs}')
+logapp.debug(f'TXTS = {gui_txts}')
 
-class LoadingScreen(Screen):
-    pass
+logapp.info(f'{LOG} configuration completed')

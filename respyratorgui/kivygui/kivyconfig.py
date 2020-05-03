@@ -22,8 +22,8 @@ from kivy.lang import Builder
 from kivy.core.window import Window
 from kivy.utils import get_color_from_hex
 # Coded -----------------------------------------------------------------------
-from src.settings import LOG_DIR, logapp
-from src.guiconfig import gui_colors, gui_imgs, gui_txts
+from respyratorgui.settings import LOG_DIR, logapp
+from respyratorgui.guiconfig import gui_colors, gui_imgs, gui_txts
 # Program ---------------------------------------------------------------------
 LOG = 'KIVYGUI:'
 
@@ -38,7 +38,6 @@ else:
     logapp.error(f'{LOG} Kivy not well configured')
 # COLORs
 colors = {k: get_color_from_hex(v) for k, v in gui_colors.items()}
-print(f'COLORES = {colors}')
 # IMGs
 imgs = gui_imgs
 # TXTs
