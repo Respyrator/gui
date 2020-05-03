@@ -38,13 +38,7 @@ class GuiApp(App):
 
     def build(self):
         logapp.debug(f'{LOG} build()')
-        #Clock.schedule_once(lambda x: self.setup())
-        container = GuiContainer()
-        return container
-
-    def setup(self):
-        print("mi polla en tu boca")
-        self.root.sm.transition = NoTransition()
+        return GuiContainer()
 
     def tab_selected(self, tab=''):
         screens = {
