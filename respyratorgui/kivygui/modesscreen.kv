@@ -27,22 +27,22 @@
             orientation: 'horizontal'
             size_hint_y: 2
 
-            Label:
+            BorderLabel:
                 text: txts['modes_modes']
 
             BoxLayout:
                 orientation: 'vertical'
 
-                Label:
+                BorderLabel:
                     text: txts['modes_control']
                 
                 BoxLayout:
                     orientation: 'horizontal'
 
-                    Label:
+                    BorderLabel:
                         text: txts['modes_control_pressure']
 
-                    Label:
+                    BorderLabel:
                         text: txts['modes_control_volume']
         # Ventilations & mode buttons -----------------------------------------
         BoxLayout:
@@ -50,10 +50,8 @@
             size_hint_y: 4
             # Ventilations Tittle ---------------------------------------------
             Widget:
-                #anchor_x: 'center'
-                #anchor_y: 'center'
                 size_hint_x: 1
-            
+
                 Scatter:
                     center: self.parent.center
                     size: ventilations.size
@@ -62,7 +60,7 @@
                     do_scale: False
                     rotation: 90
 
-                    Label:
+                    BorderLabel:
                         id: ventilations
                         size: self.texture_size
                         text: txts['modes_ventilations']
@@ -71,16 +69,16 @@
                 orientation: 'vertical'
                 size_hint_x: 4
 
-                Label:
+                BorderLabel:
                     text: txts['modes_ventilation_control']
 
-                Label:
+                BorderLabel:
                     text: txts['modes_ventilation_assist']
 
-                Label:
+                BorderLabel:
                     text: txts['modes_ventilation_support']
 
-                Label:
+                BorderLabel:
                     text: txts['modes_ventilation_spontaneous']
             # Control Buttons ---------------------------------------
             BoxLayout:
@@ -112,16 +110,19 @@
                         Button:
                             text: 'Asistido Volumen'
 
-                        Label:
+                        BorderLabel:
                             text: ''
                 # Buttons last row
                 Button:
                     size_hint_y: 1
                     text: 'Espontáneo'
 
-            
-            # Control Volume Buttons ------------------------------------------
-            BoxLayout:
-                orientation: 'vertical'
-                size_hint_x: 
-
+<BorderLabel@Label>:
+    halign: 'center'
+    valign: 'center'
+    canvas.before:
+        Color:
+            rgba: .5, .5, .5, 1
+        Line:
+            width: 2
+            rectangle: self.x, self.y, self.width, self.height

@@ -19,9 +19,49 @@
 <ParamsScreen>:
     name: 'params_screen'
     id: params_screen
-    AnchorLayout:
-        anchor_x: 'center'
-        anchor_y: 'center'
+    BoxLayout:
+        orientation: 'vertical'
 
         Label:
-            text: txts['params_params']
+            size_hint_y: 1
+            text: txts['params_params'].upper()
+
+        StackLayout:
+            size_hint_y: 9
+            orientation: 'lr-tb'
+
+            Param:
+                size_hint_y: 1
+                width: 40
+
+            Param:
+                size_hint_y: 1
+                width: 40
+
+            Param:
+                size_hint_y: 1
+                width: 40
+
+
+
+
+<Param@BoxLayout>:
+    orientation: 'vertical'
+    txt: param_label.text
+    val: param_value.value
+    canvas.before:
+        Color:
+            rgba: .5, .5, .5, 1
+        Line:
+            width: 2
+            rectangle: self.x, self.y, self.width, self.height
+
+    Label:
+        id: param_label
+        text: str(param_value.value)
+
+    Slider:
+        id: param_value
+        min: -100
+        max: 100
+        value: 25

@@ -17,6 +17,8 @@
 # Built-in --------------------------------------------------------------------
 # Installed -------------------------------------------------------------------
 from kivy.uix.screenmanager import Screen
+from kivy.uix.boxlayout import BoxLayout
+from kivy.properties import StringProperty, NumericProperty
 # Coded -----------------------------------------------------------------------
 from respyratorgui import logapp
 from . import load_kv
@@ -26,5 +28,10 @@ LOG = 'ParamsScreen:'
 load_kv(__file__)
 
 
+class Param(BoxLayout):
+    txt = StringProperty()
+    val = NumericProperty()
+
+
+
 class ParamsScreen(Screen):
-    pass
