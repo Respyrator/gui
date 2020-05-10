@@ -1,0 +1,128 @@
+# Copyright (C) 2020 Respyrator
+# This file is part of Respyrator <https://respyrator.github.io>.
+#
+# Respyrator is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Respyrator is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Respyrator.  If not, see <http://www.gnu.org/licenses/>.
+
+#:kivy 1.11.1
+
+<ModesScreen>:
+    name: 'modes_screen'
+    id: modes_screen
+    BoxLayout:
+        orientation: 'vertical'
+
+        # Tittle & Controls ---------------------------------------------------
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 2
+
+            BorderLabel:
+                text: txts['modes_modes']
+
+            BoxLayout:
+                orientation: 'vertical'
+
+                BorderLabel:
+                    text: txts['modes_control']
+                
+                BoxLayout:
+                    orientation: 'horizontal'
+
+                    BorderLabel:
+                        text: txts['modes_control_pressure']
+
+                    BorderLabel:
+                        text: txts['modes_control_volume']
+        # Ventilations & mode buttons -----------------------------------------
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 4
+            # Ventilations Tittle ---------------------------------------------
+            Widget:
+                size_hint_x: 1
+
+                Scatter:
+                    center: self.parent.center
+                    size: ventilations.size
+                    do_rotation: False
+                    do_translation: False
+                    do_scale: False
+                    rotation: 90
+
+                    BorderLabel:
+                        id: ventilations
+                        size: self.texture_size
+                        text: txts['modes_ventilations']
+            # Ventilations ----------------------------------------------------
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: 4
+
+                BorderLabel:
+                    text: txts['modes_ventilation_control']
+
+                BorderLabel:
+                    text: txts['modes_ventilation_assist']
+
+                BorderLabel:
+                    text: txts['modes_ventilation_support']
+
+                BorderLabel:
+                    text: txts['modes_ventilation_spontaneous']
+            # Control Buttons ---------------------------------------
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: 5
+                # Buttons except last row
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: 3
+                    # Buttons Control Preassure
+                    BoxLayout:
+                        orientation: 'vertical'
+
+                        Button:
+                            text: 'Control Presión'
+
+                        Button:
+                            text: 'Asistido Presión'
+
+                        Button:
+                            text: 'Soporte Presión'
+                    # Buttons Control Volume
+                    BoxLayout:
+                        orientation: 'vertical'
+
+                        Button:
+                            text: 'Control Volumen'
+
+                        Button:
+                            text: 'Asistido Volumen'
+
+                        BorderLabel:
+                            text: ''
+                # Buttons last row
+                Button:
+                    size_hint_y: 1
+                    text: 'Espontáneo'
+
+<BorderLabel@Label>:
+    halign: 'center'
+    valign: 'center'
+    canvas.before:
+        Color:
+            rgba: .5, .5, .5, 1
+        Line:
+            width: 2
+            rectangle: self.x, self.y, self.width, self.height

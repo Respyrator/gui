@@ -1,0 +1,67 @@
+# Copyright (C) 2020 Respyrator
+# This file is part of Respyrator <https://respyrator.github.io>.
+#
+# Respyrator is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Respyrator is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Respyrator.  If not, see <http://www.gnu.org/licenses/>.
+
+#:kivy 1.11.1
+
+<ParamsScreen>:
+    name: 'params_screen'
+    id: params_screen
+    BoxLayout:
+        orientation: 'vertical'
+
+        Label:
+            size_hint_y: 1
+            text: txts['params_params'].upper()
+
+        StackLayout:
+            size_hint_y: 9
+            orientation: 'lr-tb'
+
+            Param:
+                size_hint_y: 1
+                width: 40
+
+            Param:
+                size_hint_y: 1
+                width: 40
+
+            Param:
+                size_hint_y: 1
+                width: 40
+
+
+
+
+<Param@BoxLayout>:
+    orientation: 'vertical'
+    txt: param_label.text
+    val: param_value.value
+    canvas.before:
+        Color:
+            rgba: .5, .5, .5, 1
+        Line:
+            width: 2
+            rectangle: self.x, self.y, self.width, self.height
+
+    Label:
+        id: param_label
+        text: str(param_value.value)
+
+    Slider:
+        id: param_value
+        min: -100
+        max: 100
+        value: 25
