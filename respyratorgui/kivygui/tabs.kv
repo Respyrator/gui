@@ -19,16 +19,38 @@
 #:import imgs respyratorgui.kivygui.imgs
 #:import txts respyratorgui.kivygui.txts
 
-<GuiContainer>:
-    id: gui_container
-    orientation: 'vertical'
-    sm: gui_content
-    tabs: gui_tabs
+<GuiTabs>:
+    id: gui_tabs
+    orientation: 'horizontal'
 
-    GuiContent:
-        id: gui_content
-        size_hint_y: 9
+    Button:
+        text: 'Cancel'.upper()
+        on_press: root.tab_selected('cancel')
 
-    GuiTabs:
-        id: gui_tabs
-        size_hint_y: 1
+    Label:
+        text : ''
+
+    ToggleButton:
+        group: 'tabs'
+        state: gui_tabs.modes_state
+        text: txts['modes_modes'].upper()
+        on_press: root.tab_selected('modes', self)
+
+    ToggleButton:
+        group: 'tabs'
+        state: gui_tabs.params_state
+        text: txts['params_params'].upper()
+        on_press: root.tab_selected('params', self)
+
+    ToggleButton:
+        group: 'tabs'
+        state: gui_tabs.alarms_state
+        text: txts['alarms_alarms'].upper()
+        on_press: root.tab_selected('alarms', self)
+
+    Label:
+        text : ''
+
+    Button:
+        text: 'OK'.upper()
+        on_press: root.tab_selected('monitoring')

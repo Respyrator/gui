@@ -19,36 +19,39 @@
 from kivy.app import App
 from kivy.clock import Clock
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import ObjectProperty
+from kivy.properties import ObjectProperty, StringProperty
 from kivy.uix.screenmanager import NoTransition
 # Coded -----------------------------------------------------------------------
 from . import logapp, load_kv
+from .content import GuiContent
+from .tabs import GuiTabs
 # Program ---------------------------------------------------------------------
 LOG = 'APP:'
 load_kv(__file__)
 
 
 class GuiContainer(BoxLayout):
-    pass
-
-
-class GuiApp(App):
     sm = ObjectProperty()
     tabs = ObjectProperty()
 
+    def modes(self):
+        self.sm.modes()
+        self.tabs.modes()
+
+
+class GuiApp(App):
+    mode = StringProperty()
+
     def build(self):
         logapp.debug(f'{LOG} build()')
+        Clock.schedule_once(lambda dt: self.setup(), 5.0)
         return GuiContainer()
 
-    def tab_selected(self, tab=''):
-        screens = {
-            'modes': 'modes_screen',
-            'alarms': 'alarms_screen',
-            'params': 'params_screen',
-            'monitoring': 'monitoring_screen'
-        }
-        self.root.sm.current = screens.get(tab, 'loading_screen')
+    def setup(self):
+        self.root.modes()
 
+    def mode_selected(self, mode: str):
+        self.mode = mode
 
 if __name__ == "__main__":
     GuiApp().run()

@@ -15,20 +15,22 @@
 # along with Respyrator.  If not, see <http://www.gnu.org/licenses/>.
 
 #:kivy 1.11.1
+#:import NoTransition kivy.uix.screenmanager.NoTransition
 #:import colors respyratorgui.kivygui.colors
 #:import imgs respyratorgui.kivygui.imgs
 #:import txts respyratorgui.kivygui.txts
 
-<GuiContainer>:
-    id: gui_container
-    orientation: 'vertical'
-    sm: gui_content
-    tabs: gui_tabs
+<GuiContent>:
+    id: gui_content
+    transition: NoTransition()
 
-    GuiContent:
-        id: gui_content
-        size_hint_y: 9
-
-    GuiTabs:
-        id: gui_tabs
-        size_hint_y: 1
+    LoadingScreen:
+        manager: gui_content
+    ModesScreen:
+        manager: gui_content
+    ParamsScreen:
+        manager: gui_content
+    AlarmsScreen:
+        manager: gui_content
+    MonitoringScreen:
+        manager: gui_content
