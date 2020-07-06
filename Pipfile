@@ -4,13 +4,14 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-pytest = "*"
-pylint = "*"
-flake8 = "*"
-mypy = "*"
+pytest = "==5.4.3"
+pylint = "==2.5.3"
+flake8 = "==3.8.3"
+mypy = "==0.782"
+black = "==19.10b0"
 
 [packages]
-kivy = "*"
+kivy = "==1.11.1"
 
 [requires]
 python_version = "3.7"
