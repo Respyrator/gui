@@ -22,6 +22,9 @@
 <GuiTabs>:
     id: gui_tabs
     orientation: 'horizontal'
+    tab_modes: modes
+    tab_params: params
+    tab_alarms: alarms
 
     Button:
         text: 'Cancel'.upper()
@@ -31,22 +34,25 @@
         text : ''
 
     ToggleButton:
+        id: modes
         group: 'tabs'
-        state: gui_tabs.modes_state
+        state: 'normal'
         text: txts['modes_modes'].upper()
-        on_press: root.tab_selected('modes', self)
+        on_press: root.tab_modes_on()
 
     ToggleButton:
+        id: params
         group: 'tabs'
-        state: gui_tabs.params_state
+        state: 'normal'
         text: txts['params_params'].upper()
-        on_press: root.tab_selected('params', self)
+        on_press: root.tab_on(self)
 
     ToggleButton:
+        id: alarms
         group: 'tabs'
-        state: gui_tabs.alarms_state
+        state: 'normal'
         text: txts['alarms_alarms'].upper()
-        on_press: root.tab_selected('alarms', self)
+        on_press: root.tab_on(self)
 
     Label:
         text : ''

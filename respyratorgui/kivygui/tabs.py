@@ -17,7 +17,7 @@
 # Built-in --------------------------------------------------------------------
 # Installed -------------------------------------------------------------------
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import StringProperty, BooleanProperty
+from kivy.properties import StringProperty, BooleanProperty, ObjectProperty
 from kivy.uix.togglebutton import ToggleButton
 # Coded -----------------------------------------------------------------------
 from . import logapp, load_kv
@@ -27,39 +27,24 @@ load_kv(__file__)
 
 
 class GuiTabs(BoxLayout):
+    tab_modes = ObjectProperty()
+    tab_params = ObjectProperty()
+    tab_alarms = ObjectProperty()
     modes_state = StringProperty('normal')
     params_state = StringProperty('normal')
     alarms_state = StringProperty('normal')
-    modes_enabled = BooleanProperty(False)
+    tab_modes_blocked = BooleanProperty(False)
 
-    def _togglebutton_always_selected(self, tb: ToggleButton):
-        if tb:
-            tb.state = 'down'
+    def tab_modes_on(self):
+        self.tab_modes_blocked = True
+        self.tab_modes.state = 'down'
+        self.tab_params.state = 'normal'
+        self.tab_alarms.state = 'normal'
 
-    def tab_selected(self, tab: str, tb: ToggleButton = None):
-        logapp.info(f'{LOG} tab_selected({tab})')
-        if self.modes_enabled:
-            self.modes()
+    def tab_on(self, tb: ToggleButton):
+        if self.tab_modes_blocked:
+            tb.state = 'normal'
+            self.tab_modes.state = 'down'
         else:
-            self._togglebutton_always_selected(tb)
-
-    def modes(self):
-        logapp.debug(f'{LOG} modes()')
-        self.modes_enabled = True
-        self.modes_state = 'down'
-        self.params_state = 'normal'
-        self.alarms_state = 'normal'
-
-    def params(self):
-        logapp.debug(f'{LOG} params()')
-        self.modes_enabled = False
-        self.modes_state = 'normal'
-        self.params_state = 'down'
-        self.alarms_state = 'normal'
-
-    def alarms(self):
-        logapp.debug(f'{LOG} alarms()')
-        self.modes_enabled = False
-        self.modes_state = 'normal'
-        self.params_state = 'normal'
-        self.alarms_state = 'down'
+            tb.state = 'down'
+            self.tab_modes.state = 'normal'
