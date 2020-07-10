@@ -31,12 +31,12 @@ load_kv(__file__)
 
 
 class GuiContainer(BoxLayout):
-    sm = ObjectProperty()
+    content = ObjectProperty()
     tabs = ObjectProperty()
 
-    def modes(self):
-        self.sm.modes()
-        self.tabs.modes()
+    def ui_modes(self):
+        self.content.ui_modes()
+        self.tabs.tab_modes_on()
 
 
 class GuiApp(App):
@@ -48,10 +48,11 @@ class GuiApp(App):
         return GuiContainer()
 
     def setup(self):
-        self.root.modes()
+        self.root.ui_modes()
 
     def mode_selected(self, mode: str):
         self.mode = mode
+
 
 if __name__ == "__main__":
     GuiApp().run()

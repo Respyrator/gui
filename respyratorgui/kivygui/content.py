@@ -34,17 +34,17 @@ class GuiContent(ScreenManager):
         }
         self.current = screens.get(screen, 'loading_screen')
 
-    def loading(self):
+    def ui_loading(self):
         self._set_screen()
 
-    def modes(self):
+    def ui_modes(self):
         self._set_screen('modes')
 
-    def params(self):
+    def ui_params(self):
         self._set_screen('params')
 
-    def alarms(self):
+    def ui_alarms(self):
         self._set_screen('alarms')
 
-    def monitoring(self):
+    def ui_monitoring(self):
         self._set_screen('monitoring')
