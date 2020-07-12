@@ -30,9 +30,6 @@ class GuiTabs(BoxLayout):
     tab_modes = ObjectProperty()
     tab_params = ObjectProperty()
     tab_alarms = ObjectProperty()
-    modes_state = StringProperty('normal')
-    params_state = StringProperty('normal')
-    alarms_state = StringProperty('normal')
     tab_modes_blocked = BooleanProperty(False)
 
     def tab_modes_selected(self):
