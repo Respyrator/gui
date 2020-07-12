@@ -35,16 +35,22 @@ class GuiTabs(BoxLayout):
     alarms_state = StringProperty('normal')
     tab_modes_blocked = BooleanProperty(False)
 
-    def tab_modes_on(self):
-        self.tab_modes_blocked = True
+    def tab_modes_selected(self):
         self.tab_modes.state = 'down'
         self.tab_params.state = 'normal'
         self.tab_alarms.state = 'normal'
 
-    def tab_on(self, tb: ToggleButton):
-        if self.tab_modes_blocked:
-            tb.state = 'normal'
-            self.tab_modes.state = 'down'
-        else:
-            tb.state = 'down'
-            self.tab_modes.state = 'normal'
+    def tab_params_selected(self):
+        self.tab_modes.state = 'normal'
+        self.tab_params.state = 'down'
+        self.tab_alarms.state = 'normal'
+
+    def tab_alarms_selected(self):
+        self.tab_modes.state = 'normal'
+        self.tab_params.state = 'normal'
+        self.tab_alarms.state = 'down'
+
+    def tab_nothing_selected(self):
+        self.tab_modes.state = 'normal'
+        self.tab_params.state = 'normal'
+        self.tab_alarms.state = 'normal'

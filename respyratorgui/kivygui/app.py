@@ -19,7 +19,7 @@
 from kivy.app import App
 from kivy.clock import Clock
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import ObjectProperty, StringProperty
+from kivy.properties import ObjectProperty, StringProperty, BooleanProperty
 from kivy.uix.screenmanager import NoTransition
 # Coded -----------------------------------------------------------------------
 from . import logapp, load_kv
@@ -33,10 +33,29 @@ load_kv(__file__)
 class GuiContainer(BoxLayout):
     content = ObjectProperty()
     tabs = ObjectProperty()
+    block_tab_modes = BooleanProperty(False)
+
+    def unblock_tabs(self):
+        self.block_tab_modes = False
 
     def ui_modes(self):
+        self.block_tab_modes = True
         self.content.ui_modes()
-        self.tabs.tab_modes_on()
+        self.tabs.tab_modes_selected()
+
+    def ui_params(self):
+        if not self.block_tab_modes:
+            self.content.ui_params()
+            self.tabs.tab_params_selected()
+        else:
+            self.ui_modes()
+
+    def ui_alarms(self):
+        if not self.block_tab_modes:
+            self.content.ui_alarms()
+            self.tabs.tab_alarms_selected()
+        else:
+            self.ui_modes()
 
 
 class GuiApp(App):
@@ -48,10 +67,20 @@ class GuiApp(App):
         return GuiContainer()
 
     def setup(self):
-        self.root.ui_modes()
+        self.ui_selected('modes')
+
+    def ui_selected(self, screen: str):
+        ui = {
+            'modes': self.root.ui_modes,
+            'params': self.root.ui_params,
+            'alarms': self.root.ui_alarms,
+        }
+        ui[screen]()
 
     def mode_selected(self, mode: str):
         self.mode = mode
+        self.root.unblock_tabs()
+        self.ui_selected('params')
 
 
 if __name__ == "__main__":
