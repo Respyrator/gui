@@ -46,7 +46,11 @@ txts = gui_txts
 # Background Window color
 Window.clearcolor = colors['brand']
 logapp.debug(f'{LOG} Window background to {Window.clearcolor}')
+
+
 # Load .kv files for ScreenManager
-load_kv = lambda x: Builder.load_file(str(Path(x).resolve())[:-3] + '.kv')
+def load_kv(kv_file: str):
+    Builder.load_file(str(Path(kv_file).resolve())[:-3] + '.kv')
+
 
 logapp.info(f'{LOG} kivy config loaded')
