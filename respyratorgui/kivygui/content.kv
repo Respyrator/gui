@@ -14,24 +14,23 @@
 # You should have received a copy of the GNU General Public License
 # along with Respyrator.  If not, see <http://www.gnu.org/licenses/>.
 
-# Built-in --------------------------------------------------------------------
-# Installed -------------------------------------------------------------------
-from kivy.uix.screenmanager import Screen
-from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import StringProperty, NumericProperty
-# Coded -----------------------------------------------------------------------
-from respyratorgui import logapp
-from . import load_kv
-# Program ---------------------------------------------------------------------
-LOG = 'ParamsScreen:'
+#:kivy 1.11.1
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+#:import colors respyratorgui.kivygui.colors
+#:import imgs respyratorgui.kivygui.imgs
+#:import txts respyratorgui.kivygui.txts
 
-load_kv(__file__)
+<GuiContent>:
+    id: gui_content
+    transition: NoTransition()
 
-
-class Param(BoxLayout):
-    txt = StringProperty()
-    val = NumericProperty()
-
-
-class ParamsScreen(Screen):
-    pass
+    LoadingScreen:
+        manager: gui_content
+    ModesScreen:
+        manager: gui_content
+    ParamsScreen:
+        manager: gui_content
+    AlarmsScreen:
+        manager: gui_content
+    MonitoringScreen:
+        manager: gui_content

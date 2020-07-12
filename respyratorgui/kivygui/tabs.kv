@@ -1,0 +1,62 @@
+# Copyright (C) 2020 Respyrator
+# This file is part of Respyrator <https://respyrator.github.io>.
+#
+# Respyrator is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Respyrator is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Respyrator.  If not, see <http://www.gnu.org/licenses/>.
+
+#:kivy 1.11.1
+#:import colors respyratorgui.kivygui.colors
+#:import imgs respyratorgui.kivygui.imgs
+#:import txts respyratorgui.kivygui.txts
+
+<GuiTabs>:
+    id: gui_tabs
+    orientation: 'horizontal'
+    tab_modes: modes
+    tab_params: params
+    tab_alarms: alarms
+
+    Button:
+        text: 'Cancel'.upper()
+        on_press: root.tab_selected('cancel')
+
+    Label:
+        text : ''
+
+    ToggleButton:
+        id: modes
+        group: 'tabs'
+        state: 'normal'
+        text: txts['modes_modes'].upper()
+        on_press: app.ui_selected('modes')
+
+    ToggleButton:
+        id: params
+        group: 'tabs'
+        state: 'normal'
+        text: txts['params_params'].upper()
+        on_press: app.ui_selected('params')
+
+    ToggleButton:
+        id: alarms
+        group: 'tabs'
+        state: 'normal'
+        text: txts['alarms_alarms'].upper()
+        on_press: app.ui_selected('alarms')
+
+    Label:
+        text : ''
+
+    Button:
+        text: 'OK'.upper()
+        on_press: root.tab_selected('monitoring')

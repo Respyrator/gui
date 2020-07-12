@@ -19,35 +19,68 @@
 from kivy.app import App
 from kivy.clock import Clock
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import ObjectProperty
+from kivy.properties import ObjectProperty, StringProperty, BooleanProperty
 from kivy.uix.screenmanager import NoTransition
 # Coded -----------------------------------------------------------------------
 from . import logapp, load_kv
+from .content import GuiContent
+from .tabs import GuiTabs
 # Program ---------------------------------------------------------------------
 LOG = 'APP:'
 load_kv(__file__)
 
 
 class GuiContainer(BoxLayout):
-    pass
+    content = ObjectProperty()
+    tabs = ObjectProperty()
+    block_tab_modes = BooleanProperty(False)
+
+    def unblock_tabs(self):
+        self.block_tab_modes = False
+
+    def ui_modes(self):
+        self.block_tab_modes = True
+        self.content.ui_modes()
+        self.tabs.tab_modes_selected()
+
+    def ui_params(self):
+        if not self.block_tab_modes:
+            self.content.ui_params()
+            self.tabs.tab_params_selected()
+        else:
+            self.ui_modes()
+
+    def ui_alarms(self):
+        if not self.block_tab_modes:
+            self.content.ui_alarms()
+            self.tabs.tab_alarms_selected()
+        else:
+            self.ui_modes()
 
 
 class GuiApp(App):
-    sm = ObjectProperty()
-    tabs = ObjectProperty()
+    mode = StringProperty()
 
     def build(self):
         logapp.debug(f'{LOG} build()')
+        Clock.schedule_once(lambda dt: self.setup(), 5.0)
         return GuiContainer()
 
-    def tab_selected(self, tab=''):
-        screens = {
-            'modes': 'modes_screen',
-            'alarms': 'alarms_screen',
-            'params': 'params_screen',
-            'monitoring': 'monitoring_screen'
+    def setup(self):
+        self.ui_selected('modes')
+
+    def ui_selected(self, screen: str):
+        ui = {
+            'modes': self.root.ui_modes,
+            'params': self.root.ui_params,
+            'alarms': self.root.ui_alarms,
         }
-        self.root.sm.current = screens.get(tab, 'loading_screen')
+        ui[screen]()
+
+    def mode_selected(self, mode: str):
+        self.mode = mode
+        self.root.unblock_tabs()
+        self.ui_selected('params')
 
 
 if __name__ == "__main__":

@@ -16,22 +16,41 @@
 
 # Built-in --------------------------------------------------------------------
 # Installed -------------------------------------------------------------------
-from kivy.uix.screenmanager import Screen
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import StringProperty, NumericProperty
+from kivy.properties import StringProperty, BooleanProperty, ObjectProperty
+from kivy.uix.togglebutton import ToggleButton
 # Coded -----------------------------------------------------------------------
-from respyratorgui import logapp
-from . import load_kv
+from . import logapp, load_kv
 # Program ---------------------------------------------------------------------
-LOG = 'ParamsScreen:'
-
+LOG = 'TABS:'
 load_kv(__file__)
 
 
-class Param(BoxLayout):
-    txt = StringProperty()
-    val = NumericProperty()
+class GuiTabs(BoxLayout):
+    tab_modes = ObjectProperty()
+    tab_params = ObjectProperty()
+    tab_alarms = ObjectProperty()
+    modes_state = StringProperty('normal')
+    params_state = StringProperty('normal')
+    alarms_state = StringProperty('normal')
+    tab_modes_blocked = BooleanProperty(False)
 
+    def tab_modes_selected(self):
+        self.tab_modes.state = 'down'
+        self.tab_params.state = 'normal'
+        self.tab_alarms.state = 'normal'
 
-class ParamsScreen(Screen):
-    pass
+    def tab_params_selected(self):
+        self.tab_modes.state = 'normal'
+        self.tab_params.state = 'down'
+        self.tab_alarms.state = 'normal'
+
+    def tab_alarms_selected(self):
+        self.tab_modes.state = 'normal'
+        self.tab_params.state = 'normal'
+        self.tab_alarms.state = 'down'
+
+    def tab_nothing_selected(self):
+        self.tab_modes.state = 'normal'
+        self.tab_params.state = 'normal'
+        self.tab_alarms.state = 'normal'

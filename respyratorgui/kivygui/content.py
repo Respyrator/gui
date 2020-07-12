@@ -16,22 +16,35 @@
 
 # Built-in --------------------------------------------------------------------
 # Installed -------------------------------------------------------------------
-from kivy.uix.screenmanager import Screen
-from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import StringProperty, NumericProperty
+from kivy.uix.screenmanager import ScreenManager
 # Coded -----------------------------------------------------------------------
-from respyratorgui import logapp
-from . import load_kv
+from . import logapp, load_kv
 # Program ---------------------------------------------------------------------
-LOG = 'ParamsScreen:'
-
+LOG = 'CONTENT:'
 load_kv(__file__)
 
 
-class Param(BoxLayout):
-    txt = StringProperty()
-    val = NumericProperty()
+class GuiContent(ScreenManager):
+    def _set_screen(self, screen: str = ''):
+        screens = {
+            'modes': 'modes_screen',
+            'params': 'params_screen',
+            'alarms': 'alarms_screen',
+            'monitoring': 'monitoring_screen'
+        }
+        self.current = screens.get(screen, 'loading_screen')
 
+    def ui_loading(self):
+        self._set_screen()
 
-class ParamsScreen(Screen):
-    pass
+    def ui_modes(self):
+        self._set_screen('modes')
+
+    def ui_params(self):
+        self._set_screen('params')
+
+    def ui_alarms(self):
+        self._set_screen('alarms')
+
+    def ui_monitoring(self):
+        self._set_screen('monitoring')

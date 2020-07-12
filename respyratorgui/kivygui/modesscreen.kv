@@ -94,21 +94,26 @@
 
                         Button:
                             text: 'Control Presión'
+                            on_press: app.mode_selected('pressure_control')
 
                         Button:
                             text: 'Asistido Presión'
+                            on_press: app.mode_selected('pressure_assisted')
 
                         Button:
                             text: 'Soporte Presión'
+                            on_press: app.mode_selected('pressure_support')
                     # Buttons Control Volume
                     BoxLayout:
                         orientation: 'vertical'
 
                         Button:
                             text: 'Control Volumen'
+                            on_press: app.mode_selected('volume_control')
 
                         Button:
                             text: 'Asistido Volumen'
+                            on_press: app.mode_selected('volume_assisted')
 
                         BorderLabel:
                             text: ''
@@ -116,6 +121,7 @@
                 Button:
                     size_hint_y: 1
                     text: 'Espontáneo'
+                    on_press: app.mode_selected('spontaneous')
 
 <BorderLabel@Label>:
     halign: 'center'
