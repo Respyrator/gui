@@ -1,3 +1,4 @@
+
 # Copyright (C) 2020 Respyrator
 # This file is part of Respyrator <https://respyrator.github.io>.
 #
@@ -18,7 +19,9 @@
 # Installed -------------------------------------------------------------------
 from kivy.uix.screenmanager import Screen
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import StringProperty, NumericProperty
+from kivy.app import App
+from kivy.properties import StringProperty, BoundedNumericProperty, \
+    ObjectProperty, NumericProperty
 # Coded -----------------------------------------------------------------------
 from respyratorgui import logapp
 from . import load_kv
@@ -29,9 +32,18 @@ load_kv(__file__)
 
 
 class Param(BoxLayout):
-    txt = StringProperty()
-    val = NumericProperty()
+    param = StringProperty()
+    acronym = StringProperty()
+    units = StringProperty()
+    value_min = NumericProperty()
+    value_max = NumericProperty()
+    value = NumericProperty()
+    text_value = StringProperty(f'{acronym} ({units}): {value}')
+
+    def on_value(self, instance, data):
+        self.text_value = f'{self.acronym} ({self.units}): {data}'
+        App.get_running_app().param_selected(self.param, data)
 
 
 class ParamsScreen(Screen):
-    pass
+    params = ObjectProperty()

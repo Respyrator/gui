@@ -19,6 +19,8 @@
 <ParamsScreen>:
     name: 'params_screen'
     id: params_screen
+    params: params_layout
+
     BoxLayout:
         orientation: 'vertical'
 
@@ -26,29 +28,46 @@
             size_hint_y: 1
             text: txts['params_params'].upper()
 
-        StackLayout:
-            size_hint_y: 9
-            orientation: 'lr-tb'
-
+        AnchorLayout:
+            id: params_layout
+            anchor_x: 'center'
+            anchor_y: 'center'
+            padding: 20
+            
             Param:
-                size_hint_y: 1
-                width: 40
-
-            Param:
-                size_hint_y: 1
-                width: 40
-
-            Param:
-                size_hint_y: 1
-                width: 40
+                param: 'Parrametro'
+                acronym: 'PRM'
+                units: 'L'
+                value_min: 1.0
+                value_max: 3.0
+                value: 2.0
+                text_value: 'pene'
+#        StackLayout:
+#            size_hint_y: 9
+#            orientation: 'lr-tb'
+#
+#            Param:
+#                size_hint_y: 1
+#                width: 40
+#
+#            Param:
+#                size_hint_y: 1
+#                width: 40
+#
+#            Param:
+#                size_hint_y: 1
+#                width: 40
 
 
 
 
 <Param@BoxLayout>:
     orientation: 'vertical'
-    txt: param_label.text
-    val: param_value.value
+    acronym: param_label.text
+    value: param_value.value
+    value_min: param_value.min
+    value_max: param_value.max
+    text_value: param_label.text
     canvas.before:
         Color:
             rgba: .5, .5, .5, 1
@@ -58,10 +77,7 @@
 
     Label:
         id: param_label
-        text: str(param_value.value)
+        #text: str(param_value.value)
 
     Slider:
         id: param_value
-        min: -100
-        max: 100
-        value: 25
