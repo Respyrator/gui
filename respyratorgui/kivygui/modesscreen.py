@@ -16,6 +16,7 @@
 
 # Built-in --------------------------------------------------------------------
 # Installed -------------------------------------------------------------------
+from kivy.app import App
 from kivy.uix.screenmanager import Screen
 # Coded -----------------------------------------------------------------------
 from respyratorgui import logapp
@@ -27,4 +28,6 @@ load_kv(__file__)
 
 
 class ModesScreen(Screen):
-    pass
+    def mode_selected(self, mode: str):
+        logapp.info(f'{LOG} mode_selected({mode})')
+        App.get_running_app().mode = mode
