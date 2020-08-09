@@ -18,7 +18,7 @@
 # Installed -------------------------------------------------------------------
 from kivy.uix.screenmanager import Screen
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import StringProperty, NumericProperty
+from kivy.properties import StringProperty, NumericProperty, ObjectProperty
 # Coded -----------------------------------------------------------------------
 from respyratorgui import logapp
 from . import load_kv
@@ -29,8 +29,14 @@ load_kv(__file__)
 
 
 class Param(BoxLayout):
-    txt = StringProperty()
-    val = NumericProperty()
+    #acronym = StringProperty('Param')
+    #txt = StringProperty()
+    #val = NumericProperty()
+    #units = StringProperty('units')
+
+    def get_value(self):
+        print(f'{self.acronym} - {self.val}')
+        self.txt = f'{self.acronym}: {self.val} ({self.units})'
 
 
 class ParamsScreen(Screen):

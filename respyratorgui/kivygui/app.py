@@ -63,11 +63,11 @@ class GuiApp(App):
 
     def build(self):
         logapp.debug(f'{LOG} build()')
-        Clock.schedule_once(lambda dt: self.setup(), 5.0)
+        Clock.schedule_once(lambda dt: self.setup(), 1.0)
         return GuiContainer()
 
     def setup(self):
-        self.ui_selected('modes')
+        self.ui_selected('params')
 
     def ui_selected(self, screen: str):
         ui = {
