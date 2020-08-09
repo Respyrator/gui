@@ -38,21 +38,21 @@
         group: 'tabs'
         state: 'normal'
         text: txts['modes_modes'].upper()
-        on_press: app.ui_selected('modes')
+        on_press: app.root.tab_clicked('modes')
 
     ToggleButton:
         id: params
         group: 'tabs'
         state: 'normal'
         text: txts['params_params'].upper()
-        on_press: app.ui_selected('params')
+        on_press: app.root.tab_clicked('params')
 
     ToggleButton:
         id: alarms
         group: 'tabs'
         state: 'normal'
         text: txts['alarms_alarms'].upper()
-        on_press: app.ui_selected('alarms')
+        on_press: app.root.tab_clicked('alarms')
 
     Label:
         text : ''

@@ -17,7 +17,7 @@
 # Built-in --------------------------------------------------------------------
 # Installed -------------------------------------------------------------------
 from kivy.app import App
-from kivy.properties import StringProperty
+from kivy.properties import StringProperty, DictProperty
 # Coded -----------------------------------------------------------------------
 from . import logapp
 from .container import GuiContainer
@@ -26,34 +26,29 @@ LOG = 'APP:'
 
 
 class GuiApp(App):
-    mode = StringProperty()
+    mode = StringProperty('')
+    params = DictProperty('')
+    alarms = DictProperty('')
 
     def build(self):
-        logapp.debug(f'{LOG} build()')
-        #Clock.schedule_once(lambda dt: self.setup(), 1.0)
         return GuiContainer()
 
     def on_start(self):
-        self.ui_selected('params')
+        # TODO: get all supported modes
+        # TODO: load enables modes
+        # display UI Modes
+        self.root.ui_modes()
 
     def on_mode(self, instance: StringProperty, value: str):
-        print(f'{LOG} mode = {self.mode} and value = {value}')
-
-    def ui_selected(self, screen: str):
-        ui = {
-            'modes': self.root.ui_modes,
-            'params': self.root.ui_params,
-            'alarms': self.root.ui_alarms,
-        }
-        ui[screen]()
-
-    def mode_selected(self, mode: str):
-        self.mode = mode
-        self.root.unblock_tabs()
-        self.ui_selected('params')
-
-    def param_selected(self, param: str, value: float):
-        print(f'Has changed {param} to {value}')
+        if self.mode:
+            # TODO: get params and alarms for selected mode
+            # TODO: store params
+            # TODO: store alarms
+            # display UI Params
+            self.root.ui_params()
+        # Display UI Modes
+        else:
+            self.root.ui_modes()
 
 
 if __name__ == "__main__":
