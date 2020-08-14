@@ -32,7 +32,9 @@ class GuiContent(ScreenManager):
             'alarms': 'alarms_screen',
             'monitoring': 'monitoring_screen'
         }
-        self.current = screens.get(screen, 'loading_screen')
+        screen = screens.get(screen, 'loading_screen')
+        if self.current != screen:
+            self.current = screen
 
     def ui_loading(self):
         self._set_screen()

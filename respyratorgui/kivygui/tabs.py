@@ -33,7 +33,6 @@ class GuiTabs(BoxLayout):
     tab_modes_blocked = BooleanProperty(False)
 
     def _tab_clicked(self, tab: str, tab_obj):
-        self.parent.tab_clicked(tab)
         if tab != self.tab_selected:
             self.parent.tab_clicked(tab)
         else:

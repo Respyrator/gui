@@ -37,7 +37,7 @@ class GuiApp(App):
         # TODO: get all supported modes
         # TODO: load enables modes
         # display UI Modes
-        self.root.ui_modes()
+        self.on_mode(self.mode, '')
 
     def on_mode(self, instance: StringProperty, value: str):
         if self.mode:

@@ -31,36 +31,26 @@ load_kv(__file__)
 class GuiContainer(BoxLayout):
     content = ObjectProperty()
     tabs = ObjectProperty()
-    block_tab_modes = BooleanProperty(False)
 
     def _unblock_tabs(self):
         self.block_tab_modes = False
 
     def tab_clicked(self, tab: str):
-        print(f'tab_clicked( {tab} )')
-        mode = App.get_running_app().mode
         if tab == 'modes':
-            if mode:
-                App.get_running_app().mode = ''
+            App.get_running_app().mode = ''
+        elif App.get_running_app().mode != '':
+            self.ui_params() if tab == 'params' else self.ui_alarms()
         else:
-
+            self.ui_modes()
 
     def ui_modes(self):
-        self.block_tab_modes = True
         self.content.ui_modes()
         self.tabs.tab_modes_selected()
 
     def ui_params(self):
-        self._unblock_tabs()
-        if not self.block_tab_modes:
-            self.content.ui_params()
-            self.tabs.tab_params_selected()
-        else:
-            self.ui_modes()
+        self.content.ui_params()
+        self.tabs.tab_params_selected()
 
     def ui_alarms(self):
-        if not self.block_tab_modes:
-            self.content.ui_alarms()
-            self.tabs.tab_alarms_selected()
-        else:
-            self.ui_modes()
+        self.content.ui_alarms()
+        self.tabs.tab_alarms_selected()
