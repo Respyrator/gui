@@ -36,6 +36,10 @@ class GuiContent(ScreenManager):
         if self.current != screen:
             self.current = screen
 
+    def load_modes(self, modes: dict):
+        screen_modes = self.get_screen('modes_screen')
+        screen_modes.load_modes(modes)
+
     def ui_loading(self):
         self._set_screen()
 

@@ -21,6 +21,7 @@ from kivy.properties import StringProperty, DictProperty
 # Coded -----------------------------------------------------------------------
 from . import logapp
 from .container import GuiContainer
+from ..utils import get_modes
 # Program ---------------------------------------------------------------------
 LOG = 'APP:'
 
@@ -35,7 +36,9 @@ class GuiApp(App):
 
     def on_start(self):
         # TODO: get all supported modes
+        modes = get_modes()
         # TODO: load enables modes
+        self.root.load_modes(modes)
         # display UI Modes
         self.on_mode(self.mode, '')
 
