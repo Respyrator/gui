@@ -43,6 +43,10 @@ class GuiContainer(BoxLayout):
         else:
             self.ui_modes()
 
+    def ui_loading(self):
+        self.content.ui_loading()
+        self.tabs.tab_nothing_selected()
+
     def ui_modes(self):
         self.content.ui_modes()
         self.tabs.tab_modes_selected()

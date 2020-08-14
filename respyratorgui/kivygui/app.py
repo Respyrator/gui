@@ -41,6 +41,7 @@ class GuiApp(App):
 
     def on_mode(self, instance: StringProperty, value: str):
         if self.mode:
+            self.root.ui_loading()
             # TODO: get params and alarms for selected mode
             # TODO: store params
             # TODO: store alarms
