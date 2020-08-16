@@ -88,104 +88,70 @@
                 size_hint_x: 5
 
                 # Ventilation Control
-                VentilationButtonsLayout:
+                ModeButtonsLayout:
                     id: ventilations_control
-                    # Control Pressure
-                    ControlButtonsLayout:
-                        Button:
-                            text: 'Control Presión'
-                            on_press: root.mode_selected('pressure_control')
-                    # Control Volume
-                    ControlButtonsLayout:
-                        Button:
-                            text: 'Control Volumen'
-                            on_press: root.mode_selected('volume_control')
+                    
+                    VentilationButtonsLayout:
+                        # Control Pressure
+                        ControlButtonsLayout:
+                            Button:
+                                text: 'Control Presión'
+                                on_press: root.mode_selected('pressure_control')
+                        # Control Volume
+                        ControlButtonsLayout:
+                            Button:
+                                text: 'Control Volumen'
+                                on_press: root.mode_selected('volume_control')
+
                 # Ventilation Assisted
-                VentilationButtonsLayout:
+                ModeButtonsLayout:
                     id: ventilations_assisted
-                    # Control Pressure
-                    ControlButtonsLayout:
-                        Button:
-                            text: 'Asistido Presión'
-                            on_press: root.mode_selected('pressure_assisted')
-                    # Control Volume
-                    ControlButtonsLayout:
-                        Button:
-                            text: 'Asistido Volumen'
-                            on_press: root.mode_selected('volume_assisted')
+
+                    VentilationButtonsLayout:
+                        # Control Pressure
+                        ControlButtonsLayout:
+                            Button:
+                                text: 'Asistido Presión'
+                                on_press: root.mode_selected('pressure_assisted')
+                        # Control Volume
+                        ControlButtonsLayout:
+                            Button:
+                                text: 'Asistido Volumen'
+                                on_press: root.mode_selected('volume_assisted')
+
                 # Ventilation Support
-                VentilationButtonsLayout:
+                ModeButtonsLayout:
                     id: ventilations_support
-                    # Control Pressure
-                    ControlButtonsLayout:
-                        Button:
-                            text: 'Soporte Presión'
-                            on_press: root.mode_selected('pressure_support')
-                    # Control Volume
-                    ControlButtonsLayout:
-                        Button:
-                            text: 'Soporte Volumen'
-                            on_press: root.mode_selected('volume_support')
+
+                    VentilationButtonsLayout:
+                        # Control Pressure
+                        ControlButtonsLayout:
+                            Button:
+                                text: 'Soporte Presión'
+                                on_press: root.mode_selected('pressure_support')
+                        # Control Volume
+                        ControlButtonsLayout:
+                            Button:
+                                text: 'Soporte Volumen'
+                                on_press: root.mode_selected('volume_support')
+
                 # Ventilation Spontaneous
-                VentilationButtonsLayout:
+                ModeButtonsLayout:
                     id: ventilations_spontaneous
-                    # Control Pressure
-                    ControlButtonsLayout:
-                        Button:
-                            text: 'Espontáneo Presión'
-                            on_press: root.mode_selected('pressure_spontaneous')
-                    # Control Volume
-                    ControlButtonsLayout:
-                        Button:
-                            text: 'Espontáneo Volumen'
-                            on_press: root.mode_selected('volume_spontaneous')
+
+                    # Control Both
+                    Button:
+                        text: 'Espontáneo Volumen'
+                        on_press: root.mode_selected('volume_spontaneous')
+
+<ModeButtonsLayout@BoxLayout>:
+    orientation: 'vertical'
 
 <VentilationButtonsLayout@BoxLayout>:
     orientation: 'horizontal'
-    #size_hint_y: 1
 
 <ControlButtonsLayout@BoxLayout>:
     orientation: 'vertical'
-
-
-
-#                # Buttons except last row
-#                BoxLayout:
-#                    orientation: 'horizontal'
-#                    size_hint_y: 3
-#                    # Buttons Control Preassure
-#                    BoxLayout:
-#                        orientation: 'vertical'
-#                        Button:
-#                            text: 'Control Presión'
-#                            on_press: root.mode_selected('pressure_control')
-#
-#                        Button:
-#                            text: 'Asistido Presión'
-#                            on_press: root.mode_selected('pressure_assisted')
-#
-#                        Button:
-#                            text: 'Soporte Presión'
-#                            on_press: root.mode_selected('pressure_support')
-#                    # Buttons Control Volume
-#                    BoxLayout:
-#                        orientation: 'vertical'
-#
-#                        Button:
-#                            text: 'Control Volumen'
-#                            on_press: root.mode_selected('volume_control')
-#
-#                        Button:
-#                            text: 'Asistido Volumen'
-#                            on_press: root.mode_selected('volume_assisted')
-#
-#                        BorderLabel:
-#                            text: ''
-#                # Buttons last row
-#                Button:
-#                    size_hint_y: 1
-#                    text: 'Espontáneo'
-#                    on_press: root.mode_selected('spontaneous')
 
 <BorderLabel@Label>:
     halign: 'center'

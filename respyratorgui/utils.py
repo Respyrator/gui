@@ -1,36 +1,56 @@
 def get_modes() -> dict:
     # TODO: get modes supported by the ventilator
-    modes = [
-        # TODO: Ordenadorlo por ventilaciones -> control -> name
-        "pressure_control": {
-            "name": "Control Presión",
-            "ventilation": "controlled",
-            "control": "pressure",
+    # TODO: Ordenadorlo por ventilaciones -> control -> name
+    modes = {
+        'ventilation_control': {
+            'control_pressure': [
+                {
+                    "name": "pressure_control",
+                    "text": "Control Presión"
+                }
+            ],
+            'control_volume': [
+                {
+                    "name": "volume_control",
+                    "text": "Control Volumen"
+                },
+            ],
+            'control_both': []
         },
-        "pressure_assisted": {
-            "name": "Asistido Presión",
-            "ventilation": "assisted",
-            "control": "pressure"
+        'ventilation_assisted': {
+            'control_pressure': [
+                {
+                    "name": "pressure_assisted",
+                    "text": "Asistido Presión"
+                }
+            ],
+            'control_volume': [
+                {
+                    "name": "volume_assisted",
+                    "text": "Asistido Volumen"
+                }
+            ],
+            'control_both': []
         },
-        "pressure_support": {
-            "name": "Soporte Presión",
-            "ventilation": "support",
-            "control": "pressure"
+        'ventilation_support': {
+            'control_pressure': [
+                {
+                    "name": "pressure_support",
+                    "text": "Soporte Presión"
+                }
+            ],
+            'control_volume': [],
+            'control_both': []
         },
-        "volume_control": {
-            "name": "Control Volumen",
-            "ventilation": "controlled",
-            "control": "volume"
-        },
-        "volume_assisted": {
-            "name": "Asistido Volumen",
-            "ventilation": "assisted",
-            "control": "volume"
-        },
-        "spontaneous": {
-            "name": "Espontáneo",
-            "ventilation": "spontaneous",
-            "control": "both"
+        'ventilation_spontaneous': {
+            'control_pressure': [],
+            'control_volume': [],
+            'control_both': [
+                {
+                    "name": "spontaneous",
+                    "text": "Espontánea"
+                }
+            ]
         }
-    ]
+    }
     return modes
