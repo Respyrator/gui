@@ -46,7 +46,9 @@ class GuiContent(ScreenManager):
     def ui_modes(self):
         self._set_screen('modes')
 
-    def ui_params(self):
+    def ui_params(self, params: dict):
+        screen_params = self.get_screen('params_screen')
+        screen_params.load_params(params)
         self._set_screen('params')
 
     def ui_alarms(self):

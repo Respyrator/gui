@@ -29,6 +29,17 @@ LOG = 'ParamsScreen:'
 load_kv(__file__)
 
 
+class ParamsScreen(Screen):
+    params_layout = ObjectProperty()
+
+    def load_params(self, params: dict):
+        print(f'params = {params}')
+        # Clean params matrix
+        self.params_layout.clear_widgets()
+        # Get each param
+
+
+
 class Param(BoxLayout):
     #acronym = StringProperty('Param')
     #txt = StringProperty()
@@ -38,7 +49,3 @@ class Param(BoxLayout):
     def get_value(self):
         print(f'{self.acronym} - {self.val}')
         self.txt = f'{self.acronym}: {self.val} ({self.units})'
-
-
-class ParamsScreen(Screen):
-    params = ObjectProperty()
