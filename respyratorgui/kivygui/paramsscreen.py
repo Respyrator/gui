@@ -16,10 +16,14 @@
 # along with Respyrator.  If not, see <http://www.gnu.org/licenses/>.
 
 # Built-in --------------------------------------------------------------------
+from functools import partial
 # Installed -------------------------------------------------------------------
 from kivy.uix.screenmanager import Screen
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import StringProperty, NumericProperty, ObjectProperty
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.slider import Slider
+from kivy.uix.label import Label
+from kivy.properties import ObjectProperty, DictProperty
 # Coded -----------------------------------------------------------------------
 from respyratorgui import logapp
 from . import load_kv
@@ -30,22 +34,35 @@ load_kv(__file__)
 
 
 class ParamsScreen(Screen):
-    params_layout = ObjectProperty()
+    params_layout: GridLayout = ObjectProperty()
 
     def load_params(self, params: dict):
-        print(f'params = {params}')
         # Clean params matrix
         self.params_layout.clear_widgets()
         # Get each param
-
+        for _, v in params.items():
+            param = Param()
+            param.load_param(v)
+            self.params_layout.add_widget(param)
 
 
 class Param(BoxLayout):
-    #acronym = StringProperty('Param')
-    #txt = StringProperty()
-    #val = NumericProperty()
-    #units = StringProperty('units')
+    param_label: Label = ObjectProperty()
+    param_value: Slider = ObjectProperty()
+    data = DictProperty({})
 
-    def get_value(self):
-        print(f'{self.acronym} - {self.val}')
-        self.txt = f'{self.acronym}: {self.val} ({self.units})'
+    def set_text(self, value):
+        print(f'value = {value}')
+        text = f"{self.data['acronym']}: {value:.2f} ({self.data['units']})"
+        self.param_label.text = text
+
+    def load_param(self, data: dict):
+        print(f'param = {data}')
+        self.data.update(data)
+        # Set slider
+        self.param_value.value = float(data['default'])
+        self.param_value.min = float(data['min'])
+        self.param_value.max = float(data['max'])
+        self.param_value.step = float(data['step'])
+        # Set label
+        #self.set_text(self.param_value.value)

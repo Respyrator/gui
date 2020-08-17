@@ -39,10 +39,8 @@
 
 <Param@BoxLayout>:
     orientation: 'vertical'
-    #txt: param_label.text
-    txt: 'Param'
-    val: 25
-    acronym: 'acr'
+    param_label: param_label
+    param_value: param_value
     canvas.before:
         Color:
             rgba: .5, .5, .5, 1
@@ -52,14 +50,11 @@
 
     Label:
         id: param_label
-        #ext: str(param_value.value)
-        text: root.txt
+        #text: root.txt
 
     Slider:
         id: param_value
-        min: -100
-        max: 100
-        value: root.val
-        #on_touch_up: print(f'{self.parent.acronym}: {self.value}')
-        #on_touch_up: root.get_value()
-        on_value: param_label.text = f'{root.txt}: {self.value:.2f} (units)'
+        #min: -100
+        #max: 100
+        #value: root.val
+        on_value: root.set_text(self.value)

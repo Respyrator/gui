@@ -64,6 +64,7 @@ def get_params(mode: str) -> dict:
     print(f'mode to params is {mode}')
     params = {
         'peep': {
+            'name': 'peep',
             'acronym': 'PEEP',
             'units': 'cmH2O',
             'text': 'PEEP',
@@ -73,6 +74,7 @@ def get_params(mode: str) -> dict:
             'step': 5,
         },
         'tidal_volume': {
+            'name': 'tidal_volume',
             'acronym': 'Vt',
             'units': 'L',
             'text': 'Volumen Tidal',
@@ -80,6 +82,26 @@ def get_params(mode: str) -> dict:
             'min': 1.5,
             'max': 5,
             'step': 0.5,
+        },
+        'pip': {
+            'name': 'pip',
+            'acronym': 'PIP',
+            'units': 'cmH2O',
+            'text': 'Presión de Pico',
+            'default': 180,
+            'min': 60,
+            'max': 200,
+            'step': 20,
+        },
+        'flux': {
+            'name': 'flux',
+            'acronym': 'F',
+            'units': 'mL/cm2',
+            'text': 'Flujo',
+            'default': 6,
+            'min': 2,
+            'max': 10,
+            'step': 1,
         }
     }
     return params
