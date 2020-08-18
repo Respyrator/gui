@@ -73,6 +73,16 @@ def get_params(mode: str) -> dict:
             'max': 100,
             'step': 5,
         },
+        'pip': {
+            'name': 'pip',
+            'acronym': 'PIP',
+            'units': 'cmH2O',
+            'text': 'Presion de Pico',
+            'default': 180,
+            'min': 60,
+            'max': 200,
+            'step': 20,
+        },
         'tidal_volume': {
             'name': 'tidal_volume',
             'acronym': 'Vt',
@@ -82,16 +92,6 @@ def get_params(mode: str) -> dict:
             'min': 1.5,
             'max': 5,
             'step': 0.5,
-        },
-        'pip': {
-            'name': 'pip',
-            'acronym': 'PIP',
-            'units': 'cmH2O',
-            'text': 'Presión de Pico',
-            'default': 180,
-            'min': 60,
-            'max': 200,
-            'step': 20,
         },
         'flux': {
             'name': 'flux',

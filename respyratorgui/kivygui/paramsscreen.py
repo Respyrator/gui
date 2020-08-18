@@ -60,9 +60,8 @@ class Param(BoxLayout):
         print(f'param = {data}')
         self.data.update(data)
         # Set slider
-        self.param_value.value = float(data['default'])
+        self.param_value.step = float(data['step'])
         self.param_value.min = float(data['min'])
         self.param_value.max = float(data['max'])
-        self.param_value.step = float(data['step'])
-        # Set label
-        #self.set_text(self.param_value.value)
+        # <value> need to be the last because when set <min> you have an event
+        self.param_value.value = float(data['default'])
