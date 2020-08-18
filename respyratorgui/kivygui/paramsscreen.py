@@ -18,6 +18,7 @@
 # Built-in --------------------------------------------------------------------
 from functools import partial
 # Installed -------------------------------------------------------------------
+from kivy.app import App
 from kivy.uix.screenmanager import Screen
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
@@ -35,8 +36,10 @@ load_kv(__file__)
 
 class ParamsScreen(Screen):
     params_layout: GridLayout = ObjectProperty()
+    params = DictProperty({})
 
     def load_params(self, params: dict):
+        self.params.update(params)
         # Clean params matrix
         self.params_layout.clear_widgets()
         # Get each param
@@ -51,10 +54,17 @@ class Param(BoxLayout):
     param_value: Slider = ObjectProperty()
     data = DictProperty({})
 
+    def update_parent(self):
+        self.data['value'] = self.param_value.value
+        param = self.data['name']
+        value = self.data['value']
+        App.get_running_app().update_params(param, value)
+
     def set_text(self, value):
         print(f'value = {value}')
         text = f"{self.data['acronym']}: {value:.2f} ({self.data['units']})"
         self.param_label.text = text
+        self.update_parent()
 
     def load_param(self, data: dict):
         print(f'param = {data}')

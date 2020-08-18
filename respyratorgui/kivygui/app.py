@@ -55,6 +55,9 @@ class GuiApp(App):
         else:
             self.root.ui_modes()
 
+    def update_params(self, param: str, value: float):
+        self.params[param]['value'] = value
+
 
 if __name__ == "__main__":
     GuiApp().run()
