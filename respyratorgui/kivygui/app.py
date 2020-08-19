@@ -57,8 +57,9 @@ class GuiApp(App):
     def update_params(self, param: str, value: float):
         self.params[param]['value'] = value
 
-    def update_alarms(self, alarm: str, value: float):
-        self.alarms[alarm]['value'] = value
+    def update_alarms(self, alarm: str, value_min: float, value_max: float):
+        self.alarms[alarm]['value_min'] = value_min
+        self.alarms[alarm]['value_max'] = value_max
 
 
 if __name__ == "__main__":

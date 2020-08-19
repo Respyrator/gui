@@ -48,29 +48,49 @@ class AlarmsScreen(Screen):
 
 
 class Alarm(BoxLayout):
-    alarm_label: Label = ObjectProperty()
+    alarm_label_min: Label = ObjectProperty()
     alarm_value_min: Slider = ObjectProperty()
+    alarm_label_max: Label = ObjectProperty()
     alarm_value_max: Slider = ObjectProperty()
     data = DictProperty({})
 
-    def update_parent(self):
-        self.data['value'] = self.alarm_value_min.value
-        alarm = self.data['name']
-        value = self.data['value']
-        App.get_running_app().update_alarms(alarm, value)
+    def adjust_limits(self):
+        # Greatest min value
+        if self.alarm_value_min.value > self.alarm_value_max.value:
+            self.alarm_value_min.value = self.alarm_value_max.value
+        # Lowest max value
+        if self.alarm_value_max.value < self.alarm_value_min.value:
+            self.alarm_value_min.value = self.alarm_value_min.value
 
-    def set_text(self, value):
+    def update_parent(self):
+        self.data['value_min'] = self.alarm_value_min.value
+        self.data['value_max'] = self.alarm_value_max.value
+        alarm = self.data['name']
+        vmin = self.data['value_min']
+        vmax = self.data['value_max']
+        App.get_running_app().update_alarms(alarm, vmin, vmax)
+
+    def set_text(self, value, slider: Slider):
         print(f'value = {value}')
-        text = f"{self.data['acronym']}: {value:.2f} ({self.data['units']})"
-        self.alarm_label.text = text
+        self.adjust_limits()
+        vmin = 'MIN '
+        vmin += f"{self.data['acronym']}: {value:.2f} ({self.data['units']})"
+        vmax = 'MAX '
+        vmax += f"{self.data['acronym']}: {value:.2f} ({self.data['units']})"
+        self.alarm_label_min.text = vmin
+        self.alarm_label_max.text = vmax
         self.update_parent()
 
     def load_alarm(self, data: dict):
         print(f'alarm = {data}')
         self.data.update(data)
-        # Set slider
+        # Set slider Min
         self.alarm_value_min.step = float(data['step'])
+        self.alarm_value_max.step = float(data['step'])
         self.alarm_value_min.min = float(data['min'])
+        self.alarm_value_max.min = float(data['min'])
         self.alarm_value_min.max = float(data['max'])
+        self.alarm_value_max.max = float(data['max'])
         # <value> need to be the last because when set <min> you have an event
         self.alarm_value_min.value = float(data['default'])
+        self.alarm_value_max.value = float(data['default'])

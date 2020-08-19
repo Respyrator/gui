@@ -39,8 +39,9 @@
 
 <Alarm@BoxLayout>:
     orientation: 'vertical'
-    alarm_label: alarm_label
+    alarm_label_min: alarm_label_min
     alarm_value_min: alarm_value_min
+    alarm_label_max: alarm_label_max
     alarm_value_max: alarm_value_max
     canvas.before:
         Color:
@@ -50,12 +51,15 @@
             rectangle: self.x, self.y, self.width, self.height
 
     Label:
-        id: alarm_label
+        id: alarm_label_min
 
     Slider:
         id: alarm_value_min
-        on_value: root.set_text(self.value)
+        on_value: root.set_text(self.value, self)
+
+    Label:
+        id: alarm_label_max
 
     Slider:
         id: alarm_value_max
-        on_value: root.set_text(self.value)
+        on_value: root.set_text(self.value, self)
