@@ -60,8 +60,61 @@ def get_modes() -> dict:
 
 def get_params(mode: str) -> dict:
     # TODO: Ask for params of the specific <mode>
-    # TODO: params are orde -> [PEEP, FiO2, I:E, ...]
+    # TODO: params are order by -> [PEEP, FiO2, I:E, ...]
     print(f'mode to params is {mode}')
+    params = {
+        'peep': {
+            'name': 'peep',
+            'acronym': 'PEEP',
+            'units': 'cmH2O',
+            'text': 'PEEP',
+            'default': 80,
+            'value': 0,
+            'min': 20,
+            'max': 100,
+            'step': 5,
+        },
+        'pip': {
+            'name': 'pip',
+            'acronym': 'PIP',
+            'units': 'cmH2O',
+            'text': 'Presion de Pico',
+            'default': 180,
+            'value': 0,
+            'min': 60,
+            'max': 200,
+            'step': 20,
+        },
+        'tidal_volume': {
+            'name': 'tidal_volume',
+            'acronym': 'Vt',
+            'units': 'L',
+            'text': 'Volumen Tidal',
+            'default': 3,
+            'value': 0,
+            'min': 1.5,
+            'max': 5,
+            'step': 0.5,
+        },
+        'flux': {
+            'name': 'flux',
+            'acronym': 'F',
+            'units': 'mL/cm2',
+            'text': 'Flujo',
+            'default': 6,
+            'value': 0,
+            'min': 2,
+            'max': 10,
+            'step': 1,
+        }
+    }
+    return params
+
+
+def get_alarms(mode: str) -> dict:
+    # TODO: Ask for alarms of the specific <mode>
+    # TODO: alarms are order by -> [PEEP, FiO2, I:E, ...]
+    print(f'mode to alarms is {mode}')
     params = {
         'peep': {
             'name': 'peep',

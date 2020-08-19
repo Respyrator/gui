@@ -47,16 +47,18 @@ class GuiApp(App):
             self.root.ui_loading()
             # TODO: get params and alarms for selected mode
             self.params = utils.get_params(self.mode)
-            # TODO: store params
-            # TODO: store alarms
+            self.alarms = utils.get_alarms(self.mode)
             # display UI Params
-            self.root.ui_params(self.params)
+            self.root.ui_params()
         # Display UI Modes
         else:
             self.root.ui_modes()
 
     def update_params(self, param: str, value: float):
         self.params[param]['value'] = value
+
+    def update_alarms(self, alarm: str, value: float):
+        self.alarms[alarm]['value'] = value
 
 
 if __name__ == "__main__":

@@ -54,10 +54,12 @@ class GuiContainer(BoxLayout):
         self.content.ui_modes()
         self.tabs.tab_modes_selected()
 
-    def ui_params(self, params: dict):
+    def ui_params(self):
+        params = App.get_running_app().params
         self.content.ui_params(params)
         self.tabs.tab_params_selected()
 
     def ui_alarms(self):
-        self.content.ui_alarms()
+        alarms = App.get_running_app().alarms
+        self.content.ui_alarms(alarms)
         self.tabs.tab_alarms_selected()

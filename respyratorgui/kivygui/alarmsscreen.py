@@ -16,7 +16,13 @@
 
 # Built-in --------------------------------------------------------------------
 # Installed -------------------------------------------------------------------
+from kivy.app import App
 from kivy.uix.screenmanager import Screen
+from kivy.properties import ObjectProperty, DictProperty
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.slider import Slider
+from kivy.uix.label import Label
 # Coded -----------------------------------------------------------------------
 from respyratorgui import logapp
 from . import load_kv
@@ -27,4 +33,44 @@ load_kv(__file__)
 
 
 class AlarmsScreen(Screen):
-    pass
+    alarms_layout: GridLayout = ObjectProperty()
+    alarms = DictProperty({})
+
+    def load_alarms(self, alarms: dict):
+        self.alarms.update(alarms)
+        # Clean alarms matrix
+        self.alarms_layout.clear_widgets()
+        # Get each alarm
+        for _, v in alarms.items():
+            alarm = Alarm()
+            alarm.load_alarm(v)
+            self.alarms_layout.add_widget(alarm)
+
+
+class Alarm(BoxLayout):
+    alarm_label: Label = ObjectProperty()
+    alarm_value_min: Slider = ObjectProperty()
+    alarm_value_max: Slider = ObjectProperty()
+    data = DictProperty({})
+
+    def update_parent(self):
+        self.data['value'] = self.alarm_value_min.value
+        alarm = self.data['name']
+        value = self.data['value']
+        App.get_running_app().update_alarms(alarm, value)
+
+    def set_text(self, value):
+        print(f'value = {value}')
+        text = f"{self.data['acronym']}: {value:.2f} ({self.data['units']})"
+        self.alarm_label.text = text
+        self.update_parent()
+
+    def load_alarm(self, data: dict):
+        print(f'alarm = {data}')
+        self.data.update(data)
+        # Set slider
+        self.alarm_value_min.step = float(data['step'])
+        self.alarm_value_min.min = float(data['min'])
+        self.alarm_value_min.max = float(data['max'])
+        # <value> need to be the last because when set <min> you have an event
+        self.alarm_value_min.value = float(data['default'])
