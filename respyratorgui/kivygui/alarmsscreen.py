@@ -60,7 +60,7 @@ class Alarm(BoxLayout):
             self.alarm_value_min.value = self.alarm_value_max.value
         # Lowest max value
         if self.alarm_value_max.value < self.alarm_value_min.value:
-            self.alarm_value_min.value = self.alarm_value_min.value
+            self.alarm_value_max.value = self.alarm_value_min.value
 
     def update_parent(self):
         self.data['value_min'] = self.alarm_value_min.value
