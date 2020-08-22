@@ -55,11 +55,11 @@
 
     Slider:
         id: alarm_value_min
-        on_value: root.set_text(self.value, self)
+        on_value: root.updated_value('min', self)
 
     Label:
         id: alarm_label_max
 
     Slider:
         id: alarm_value_max
-        on_value: root.set_text(self.value, self)
+        on_value: root.updated_value('max', self)

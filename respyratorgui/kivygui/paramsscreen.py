@@ -54,20 +54,24 @@ class Param(BoxLayout):
     param_value: Slider = ObjectProperty()
     data = DictProperty({})
 
-    def update_parent(self):
+    def _update_parent(self):
         self.data['value'] = self.param_value.value
         param = self.data['name']
         value = self.data['value']
         App.get_running_app().update_params(param, value)
 
-    def set_text(self, value):
-        print(f'value = {value}')
-        text = f"{self.data['acronym']}: {value:.2f} ({self.data['units']})"
-        self.param_label.text = text
-        self.update_parent()
+    def _set_text(self):
+        acronym = self.data['acronym']
+        value = self.param_value.value
+        units = self.data['units']
+        self.param_label.text = f'{acronym}: {value:.2f} ({units})'
+
+    def updated_value(self):
+        logapp.debug(f'value = {self.param_value.value}')
+        self._set_text()
+        self._update_parent()
 
     def load_param(self, data: dict):
-        print(f'param = {data}')
         self.data.update(data)
         # Set slider
         self.param_value.step = float(data['step'])

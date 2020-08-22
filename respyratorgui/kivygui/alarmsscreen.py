@@ -54,43 +54,56 @@ class Alarm(BoxLayout):
     alarm_value_max: Slider = ObjectProperty()
     data = DictProperty({})
 
-    def adjust_limits(self):
-        # Greatest min value
-        if self.alarm_value_min.value > self.alarm_value_max.value:
-            self.alarm_value_min.value = self.alarm_value_max.value
-        # Lowest max value
-        if self.alarm_value_max.value < self.alarm_value_min.value:
-            self.alarm_value_max.value = self.alarm_value_min.value
+    def _adjust_limits(self, value: str):
+        if value == 'min':
+            # Greatest min value is the lowest max value
+            if self.alarm_value_min.value > self.alarm_value_max.value:
+                self.alarm_value_min.value = self.alarm_value_max.value
+        else:
+            # Lowest max value is the greatest min value
+            if self.alarm_value_max.value < self.alarm_value_min.value:
+                self.alarm_value_max.value = self.alarm_value_min.value
 
-    def update_parent(self):
-        self.data['value_min'] = self.alarm_value_min.value
-        self.data['value_max'] = self.alarm_value_max.value
+    def _set_text(self, value: str):
+        acronym = self.data['acronym']
+        units = self.data['units']
+        if value == 'min':
+            v = self.alarm_value_min.value
+            self.alarm_label_min.text = f'MIN {acronym}: {v:.2f} ({units})'
+        else:
+            v = self.alarm_value_max.value
+            self.alarm_label_max.text = f'MAX {acronym}: {v:.2f} ({units})'
+
+    def _update_parent(self, value: str):
+        if value == 'min':
+            self.data['value_min'] = self.alarm_value_min.value
+            v = self.alarm_value_min.value
+        else:
+            self.data['value_max'] = self.alarm_value_max.value
+            v = self.alarm_value_max.value
         alarm = self.data['name']
-        vmin = self.data['value_min']
-        vmax = self.data['value_max']
-        App.get_running_app().update_alarms(alarm, vmin, vmax)
+        App.get_running_app().update_alarms(alarm, value, v)
 
-    def set_text(self, value, slider: Slider):
-        print(f'value = {value}')
-        self.adjust_limits()
-        vmin = 'MIN '
-        vmin += f"{self.data['acronym']}: {value:.2f} ({self.data['units']})"
-        vmax = 'MAX '
-        vmax += f"{self.data['acronym']}: {value:.2f} ({self.data['units']})"
-        self.alarm_label_min.text = vmin
-        self.alarm_label_max.text = vmax
-        self.update_parent()
+    def updated_value(self, value: str, instance: Slider):
+        self._adjust_limits(value)
+        self._set_text(value)
+        self._update_parent(value)
+        logapp.debug(f'{value} updated to {instance.value}')
 
     def load_alarm(self, data: dict):
-        print(f'alarm = {data}')
         self.data.update(data)
         # Set slider Min
-        self.alarm_value_min.step = float(data['step'])
-        self.alarm_value_max.step = float(data['step'])
-        self.alarm_value_min.min = float(data['min'])
-        self.alarm_value_max.min = float(data['min'])
-        self.alarm_value_min.max = float(data['max'])
-        self.alarm_value_max.max = float(data['max'])
         # <value> need to be the last because when set <min> you have an event
+        self.alarm_value_min.step = float(data['step'])
+        self.alarm_value_min.max = float(data['max'])
+        self.alarm_value_min.min = float(data['min'])
         self.alarm_value_min.value = float(data['default'])
+        # Set slider Max
+        # <value> need to be the last because when set <min> you have an event
+        self.alarm_value_max.step = float(data['step'])
+        self.alarm_value_max.max = float(data['max'])
+        self.alarm_value_max.min = float(data['min'])
         self.alarm_value_max.value = float(data['default'])
+        # TODO: double assignation is a bug because event but this solved it
+        self.alarm_value_min.value = self.data['default']
+        self.alarm_value_max.value = self.data['default']
