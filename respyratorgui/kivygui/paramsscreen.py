@@ -1,3 +1,4 @@
+
 # Copyright (C) 2020 Respyrator
 # This file is part of Respyrator <https://respyrator.github.io>.
 #
@@ -15,10 +16,15 @@
 # along with Respyrator.  If not, see <http://www.gnu.org/licenses/>.
 
 # Built-in --------------------------------------------------------------------
+from functools import partial
 # Installed -------------------------------------------------------------------
+from kivy.app import App
 from kivy.uix.screenmanager import Screen
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import StringProperty, NumericProperty
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.slider import Slider
+from kivy.uix.label import Label
+from kivy.properties import ObjectProperty, DictProperty
 # Coded -----------------------------------------------------------------------
 from respyratorgui import logapp
 from . import load_kv
@@ -28,10 +34,48 @@ LOG = 'ParamsScreen:'
 load_kv(__file__)
 
 
-class Param(BoxLayout):
-    txt = StringProperty()
-    val = NumericProperty()
-
-
 class ParamsScreen(Screen):
-    pass
+    params_layout: GridLayout = ObjectProperty()
+    params = DictProperty({})
+
+    def load_params(self, params: dict):
+        self.params.update(params)
+        # Clean params matrix
+        self.params_layout.clear_widgets()
+        # Get each param
+        for _, v in params.items():
+            param = Param()
+            param.load_param(v)
+            self.params_layout.add_widget(param)
+
+
+class Param(BoxLayout):
+    param_label: Label = ObjectProperty()
+    param_value: Slider = ObjectProperty()
+    data = DictProperty({})
+
+    def _update_parent(self):
+        self.data['value'] = self.param_value.value
+        param = self.data['name']
+        value = self.data['value']
+        App.get_running_app().update_params(param, value)
+
+    def _set_text(self):
+        acronym = self.data['acronym']
+        value = self.param_value.value
+        units = self.data['units']
+        self.param_label.text = f'{acronym}: {value:.2f} ({units})'
+
+    def updated_value(self):
+        logapp.debug(f'value = {self.param_value.value}')
+        self._set_text()
+        self._update_parent()
+
+    def load_param(self, data: dict):
+        self.data.update(data)
+        # Set slider
+        self.param_value.step = float(data['step'])
+        self.param_value.min = float(data['min'])
+        self.param_value.max = float(data['max'])
+        # <value> need to be the last because when set <min> you have an event
+        self.param_value.value = float(data['default'])

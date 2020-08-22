@@ -16,45 +16,50 @@
 
 # Built-in --------------------------------------------------------------------
 # Installed -------------------------------------------------------------------
-from kivy.uix.screenmanager import ScreenManager
+from kivy.app import App
+from kivy.uix.boxlayout import BoxLayout
+from kivy.properties import ObjectProperty, StringProperty, BooleanProperty
 # Coded -----------------------------------------------------------------------
 from . import logapp, load_kv
+from .content import GuiContent
+from .tabs import GuiTabs
 # Program ---------------------------------------------------------------------
-LOG = 'CONTENT:'
+LOG = 'CONTAINER:'
 load_kv(__file__)
 
 
-class GuiContent(ScreenManager):
-    def _set_screen(self, screen: str = ''):
-        screens = {
-            'modes': 'modes_screen',
-            'params': 'params_screen',
-            'alarms': 'alarms_screen',
-            'monitoring': 'monitoring_screen'
-        }
-        screen = screens.get(screen, 'loading_screen')
-        if self.current != screen:
-            self.current = screen
+class GuiContainer(BoxLayout):
+    content = ObjectProperty()
+    tabs = ObjectProperty()
+
+    def _unblock_tabs(self):
+        self.block_tab_modes = False
+
+    def tab_clicked(self, tab: str):
+        if tab == 'modes':
+            App.get_running_app().mode = ''
+        elif App.get_running_app().mode != '':
+            self.ui_params() if tab == 'params' else self.ui_alarms()
+        else:
+            self.ui_modes()
 
     def load_modes(self, modes: dict):
-        screen_modes = self.get_screen('modes_screen')
-        screen_modes.load_modes(modes)
+        self.content.load_modes(modes)
 
     def ui_loading(self):
-        self._set_screen()
+        self.content.ui_loading()
+        self.tabs.tab_nothing_selected()
 
     def ui_modes(self):
-        self._set_screen('modes')
+        self.content.ui_modes()
+        self.tabs.tab_modes_selected()
 
-    def ui_params(self, params: dict):
-        screen_params = self.get_screen('params_screen')
-        screen_params.load_params(params)
-        self._set_screen('params')
+    def ui_params(self):
+        params = App.get_running_app().params
+        self.content.ui_params(params)
+        self.tabs.tab_params_selected()
 
-    def ui_alarms(self, alarms: dict):
-        screen_alarms = self.get_screen('alarms_screen')
-        screen_alarms.load_alarms(alarms)
-        self._set_screen('alarms')
-
-    def ui_monitoring(self):
-        self._set_screen('monitoring')
+    def ui_alarms(self):
+        alarms = App.get_running_app().alarms
+        self.content.ui_alarms(alarms)
+        self.tabs.tab_alarms_selected()

@@ -19,9 +19,47 @@
 <AlarmsScreen>:
     name: 'alarms_screen'
     id: alarms_screen
-    AnchorLayout:
-        anchor_x: 'center'
-        anchor_y: 'center'
+    alarms_layout: alarms_layout
+
+    BoxLayout:
+        orientation: 'vertical'
 
         Label:
-            text: txts['alarms_alarms']
+            size_hint_y: 1
+            text: txts['alarms_alarms'].upper()
+
+        GridLayout:
+            id: alarms_layout 
+            size_hint_y: 9
+            padding: 10
+            spacing: 10
+            cols: 3
+            rows: 3
+
+
+<Alarm@BoxLayout>:
+    orientation: 'vertical'
+    alarm_label_min: alarm_label_min
+    alarm_value_min: alarm_value_min
+    alarm_label_max: alarm_label_max
+    alarm_value_max: alarm_value_max
+    canvas.before:
+        Color:
+            rgba: .5, .5, .5, 1
+        Line:
+            width: 2
+            rectangle: self.x, self.y, self.width, self.height
+
+    Label:
+        id: alarm_label_min
+
+    Slider:
+        id: alarm_value_min
+        on_value: root.updated_value('min', self)
+
+    Label:
+        id: alarm_label_max
+
+    Slider:
+        id: alarm_value_max
+        on_value: root.updated_value('max', self)

@@ -17,70 +17,49 @@
 # Built-in --------------------------------------------------------------------
 # Installed -------------------------------------------------------------------
 from kivy.app import App
-from kivy.clock import Clock
-from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import ObjectProperty, StringProperty, BooleanProperty
-from kivy.uix.screenmanager import NoTransition
+from kivy.properties import StringProperty, DictProperty
 # Coded -----------------------------------------------------------------------
-from . import logapp, load_kv
-from .content import GuiContent
-from .tabs import GuiTabs
+from . import logapp
+from .container import GuiContainer
+from .. import utils
 # Program ---------------------------------------------------------------------
 LOG = 'APP:'
-load_kv(__file__)
-
-
-class GuiContainer(BoxLayout):
-    content = ObjectProperty()
-    tabs = ObjectProperty()
-    block_tab_modes = BooleanProperty(False)
-
-    def unblock_tabs(self):
-        self.block_tab_modes = False
-
-    def ui_modes(self):
-        self.block_tab_modes = True
-        self.content.ui_modes()
-        self.tabs.tab_modes_selected()
-
-    def ui_params(self):
-        if not self.block_tab_modes:
-            self.content.ui_params()
-            self.tabs.tab_params_selected()
-        else:
-            self.ui_modes()
-
-    def ui_alarms(self):
-        if not self.block_tab_modes:
-            self.content.ui_alarms()
-            self.tabs.tab_alarms_selected()
-        else:
-            self.ui_modes()
 
 
 class GuiApp(App):
-    mode = StringProperty()
+    mode = StringProperty('')
+    params = DictProperty('')
+    alarms = DictProperty('')
 
     def build(self):
-        logapp.debug(f'{LOG} build()')
-        Clock.schedule_once(lambda dt: self.setup(), 5.0)
         return GuiContainer()
 
-    def setup(self):
-        self.ui_selected('modes')
+    def on_start(self):
+        # TODO: get all supported modes
+        modes = utils.get_modes()
+        # TODO: load enables modes
+        self.root.load_modes(modes)
+        # display UI Modes
+        self.on_mode(self.mode, '')
 
-    def ui_selected(self, screen: str):
-        ui = {
-            'modes': self.root.ui_modes,
-            'params': self.root.ui_params,
-            'alarms': self.root.ui_alarms,
-        }
-        ui[screen]()
+    def on_mode(self, instance: StringProperty, value: str):
+        if self.mode:
+            self.root.ui_loading()
+            # TODO: get params and alarms for selected mode
+            self.params = utils.get_params(self.mode)
+            self.alarms = utils.get_alarms(self.mode)
+            # display UI Params
+            self.root.ui_params()
+        # Display UI Modes
+        else:
+            self.root.ui_modes()
 
-    def mode_selected(self, mode: str):
-        self.mode = mode
-        self.root.unblock_tabs()
-        self.ui_selected('params')
+    def update_params(self, param: str, value: float):
+        self.params[param]['value'] = value
+
+    def update_alarms(self, alarm: str, min_max: str, value: float):
+        key = 'value_min' if min_max == 'min' else 'value_max'
+        self.alarms[alarm][key] = value
 
 
 if __name__ == "__main__":
